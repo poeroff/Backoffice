@@ -1,0 +1,54 @@
+
+.Homebtn {
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
+    z-index: 20;
+    margin-top: 1.1%;
+    margin-top: 5%;
+
+}
+.inputWithButton {
+    margin-right: 5px;
+}
+.Delivery,
+.Packaging{
+    width: 15%;
+   
+}
+.Delivery img,
+.Packaging img{
+    border-radius: 1rem;
+   
+}
+.DeliveryBtn,
+.PackagingBtn{
+   border: none;
+
+}
+.btn{
+    display: flex;
+    border-radius: 1rem;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 5%;
+}
+
+.OrderMenu {
+    margin-top: 5%;
+}
+
+.flexContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Adjust as needed */
+}
+
+.menuItem {
+   
+    text-align: center; /* Adjust as needed */
+    margin: 0 10px; /* Adjust as needed */
+}
+.menuItem img{
+    width: 40%;
+}

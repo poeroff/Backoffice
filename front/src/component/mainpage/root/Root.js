@@ -5,6 +5,7 @@ import Choiceuser from "../../choice/Choice"
 import classes from "./Root.module.css"
 import { useSelector } from "react-redux"
 import Login from "../../auth/Login"
+import Home from "../Homepage/Home"
 
 
 
@@ -19,11 +20,9 @@ const Root = () => {
 
     return (
         <React.Fragment>
-            {!user &&  <header className={classes.header}></header> } 
-            {!user && <Choiceuser></Choiceuser>}
             
-        
-
+             {!user && <Choiceuser></Choiceuser>  }
+             {user && <Home></Home> }
             <main>
                 <Outlet></Outlet>
             </main>
