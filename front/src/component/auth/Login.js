@@ -5,7 +5,7 @@ import Google from './Google';
 import classes from "./Login.module.css"
 const Login = () => {
     const [justifyActive, setJustifyActive] = useState('tab1');;
-    const [kakao , setkakao] = useState(false);
+   
 
     const handleJustifyClick = (value) => {
         if (value === justifyActive) {
@@ -15,12 +15,6 @@ const Login = () => {
         setJustifyActive(value);
     };
 
-    const kakaobutton = () =>{
-        setkakao(!kakao)
-        
-     
-    }
-        
     return (
         <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
             <MDBTabs pills justify className='mb-3 d-flex flex-row justify-content-between'>
@@ -35,41 +29,32 @@ const Login = () => {
                     </MDBTabsLink>
                 </MDBTabsItem>
             </MDBTabs>
-            {justifyActive === "tab1" && <div>
+            {justifyActive === "tab1" && <form>
                 <div className="text-center mb-3">
                     <p>Sign in with:</p>
-
-                    <div className={classes.Login}>
-                        <Kakao></Kakao>
+                    <div className={classes.signin}>
+                        <div className={classes.Login}>
+                            <Kakao></Kakao>
+                        </div>
+                        <div className={classes.Google}>
+                            <Google></Google>
+                        </div>
                     </div>
-                    <div className={classes.Google}>
-                        <Google></Google>
-                    </div>
-
                     <p className="text-center mt-3">or:</p>
                 </div>
+                <MDBInput wrapperClass='mb-4' label='Email address'  type='email' />
+                <MDBInput wrapperClass='mb-4' label='Password' type='password' />
+                <MDBBtn className="mb-4 w-100" type='submit'>Sign in</MDBBtn>
 
-                <MDBInput wrapperClass='mb-4' label='Email address' id='form1' type='email' />
-                <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' />
-
-
-                <MDBBtn className="mb-4 w-100">Sign in</MDBBtn>
-               
-            </div>}
+            </form>}
 
 
-            {justifyActive === "tab2" && <div>
-             
-
-               
-                <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='text' />
-                <MDBInput wrapperClass='mb-4' label='Email' id='form1' type='email' />
-                <MDBInput wrapperClass='mb-4' label='Password' id='form1' type='password' />
-
-                
-
-                <MDBBtn className="mb-4 w-100">Sign up</MDBBtn>
-            </div>}
+            {justifyActive === "tab2" && <form>
+                <MDBInput wrapperClass='mb-4' label='Username' type='text' />
+                <MDBInput wrapperClass='mb-4' label='Email'  type='email' />
+                <MDBInput wrapperClass='mb-4' label='Password' type='password' />
+                <MDBBtn className="mb-4 w-100" type='submit'>Sign up</MDBBtn>
+            </form>}
 
 
         </MDBContainer>

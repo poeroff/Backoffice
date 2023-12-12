@@ -1,4 +1,8 @@
-
+.signin{
+   
+    text-align: center;
+    display: flex;
+}
 .Login{
     display:  block;
     margin: 0px auto;
@@ -8,7 +12,8 @@
 }
 .Google{
     display: flex;
-    margin-top: 5%;
+    margin-right: 20%;
+   
     justify-content: center;
     
 }
