@@ -1,0 +1,14 @@
+
+.Login{
+    display:  block;
+    margin: 0px auto;
+  
+    justify-content: center;
+
+}
+.Google{
+    display: flex;
+    margin-top: 5%;
+    justify-content: center;
+    
+}
