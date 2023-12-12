@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { RestaurantsController } from '../controllers/restaurants/restaurants.controller.js';
+import RestaurantsController from '../controllers/restaurants/restaurants.controller.js';
 import uploadMiddleware from '../middleware/upload.middleware.js';
 
 const router = Router();
