@@ -1,4 +1,11 @@
 import { AuthService } from '../services/auth.service.js';
+import bcrypt from 'bcrypt';
+import {
+    JWT_ACCESS_TOKEN_EXPIRES_IN,
+    JWT_ACCESS_TOKEN_SECRET,
+    PASSWORD_SALT_ROUNDS,
+} from '../constants/security.constant.js';
+import jwt from 'jsonwebtoken';
 
 export class AuthController {
     constructor() {
@@ -94,37 +101,31 @@ export class AuthController {
     signin = async (req, res, next) => {
         try {
             const { email, password } = req.body;
-            const member = await prisma.Members.findFirst({
-                where: { email },
-            });
-            // email 일치 여부
-            if (!member) {
-                return res
-                    .status(401)
-                    .json({ message: '이메일 일치하지 않습니다.' });
+
+            if (!email) {
+                return res.status(400).json({
+                    success: false,
+                    message: '이메일 입력이 필요합니다.',
+                });
             }
-            // password를 bcrypt로 검증
-            const result = bcrpyt.compare(
+
+            if (!password) {
+                return res.status(400).json({
+                    success: false,
+                    message: '비밀번호 입력이 필요합니다.',
+                });
+            }
+
+            const accessToken = await this.authService.signin({
+                email,
                 password,
-                prisma.Members.findFirst({ where: { password } })
-            );
-            if (!result) {
-                return res
-                    .status(401)
-                    .json({ message: '비밀번호가 일치하지 않습니다.' });
-            }
-            // 로그인 성공시, JWT 발급
-            const token = jwt.sign(
-                {
-                    id: prisma.Members.id,
-                },
-                'customized_secret_key'
-            );
+            });
 
-            // const accessToken = await this.authService.signin({ email, password })
-
-            res.cookie('authorization', `Bearer ${token}`);
-            return res.status(200).json({ message: '로그인에 성공했습니다.' });
+            return res.status(200).json({
+                success: true,
+                message: '로그인에 성공했습니다.',
+                data: { accessToken },
+            });
         } catch (error) {
             console.log(error);
             return res.status(500).json({
