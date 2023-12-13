@@ -1,4 +1,4 @@
-import { prisma } from "../../utiles/prisma/prisma"
+import prisma from "../../utiles/prisma/prisma"
 
 export class ReviewsRepository {
     createReview = async (restaurantId, review, score) => {
