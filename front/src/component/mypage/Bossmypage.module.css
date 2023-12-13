@@ -13,3 +13,13 @@
     border: none;
     background-color: #93e2bb;
 }
+
+.row{
+    display: flex
+}
+.footer{
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}

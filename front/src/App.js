@@ -1,6 +1,6 @@
 
 import {createBrowserRouter ,RouterProvider} from "react-router-dom"
-import Choice from "./component/choice/Choice"
+
 import Root from "./component/mainpage/root/Root"
 import Login from "./component/auth/Login"
 import Shop from "./component/shopList/Shop"
@@ -25,7 +25,6 @@ function App() {
   <RouterProvider router={router}></RouterProvider>
   )
    
-  
 }
 
 export default App;

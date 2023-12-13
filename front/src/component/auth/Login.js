@@ -1,6 +1,6 @@
-import React, { useState , useRef, useEffect } from 'react';
-import { MDBContainer, MDBTabs, MDBTabsItem, MDBTabsLink, MDBTabsContent, MDBTabsPane, MDBBtn, MDBIcon, MDBInput, MDBCheckbox } from 'mdb-react-ui-kit';
-import {useSelector} from "react-redux"
+import React, { useState , useRef } from 'react';
+import { MDBContainer, MDBTabs, MDBTabsItem, MDBTabsLink, MDBBtn,  MDBInput } from 'mdb-react-ui-kit';
+
 import { useNavigate } from 'react-router-dom';
 import Kakao from './Kakao';
 import Google from './Google';
@@ -9,6 +9,7 @@ import classes from "./Login.module.css"
 const Login = () => {
     const [justifyActive, setJustifyActive] = useState('tab1');
     const [signerror , setsignerror] = useState()
+   
     const Signusername = useRef();
     const Signemail= useRef();
     const Signpassword = useRef();
@@ -18,10 +19,6 @@ const Login = () => {
     const navigate = useNavigate()
     let session = window.sessionStorage
    
-  
-    
-   
-
 
     const signsubmithandler = (event) =>{
        
@@ -63,7 +60,6 @@ const Login = () => {
         if (value === justifyActive) {
             return;
         }
-
         setJustifyActive(value);
     };
 

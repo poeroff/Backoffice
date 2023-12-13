@@ -1,7 +1,7 @@
 import React from "react"
 import classes from "./Choice.module.css";
 
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImage, MDBBtn } from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardBody, MDBCardText, MDBCardImage } from 'mdb-react-ui-kit';
 import { useDispatch} from "react-redux";
 import { ChoicActions } from "../../store/Choce-action";
 import { useNavigate } from "react-router-dom";

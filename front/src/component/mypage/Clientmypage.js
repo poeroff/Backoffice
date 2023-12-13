@@ -40,8 +40,6 @@ const Clientmypage = () => {
                                 <BsChatLeftText  size="55" className={classes.icon}/>
 
                                 </div>
-                             
-                              
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>

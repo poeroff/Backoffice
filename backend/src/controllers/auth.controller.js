@@ -97,7 +97,6 @@ export class AuthController {
             });
         }
     };
-
     signin = async (req, res, next) => {
         try {
             const { email, password } = req.body;

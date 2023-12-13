@@ -1,18 +1,26 @@
 import classes from "./Bossmypage.module.css"
 import { AiOutlineUser } from "react-icons/ai";
-import { MDBCol, MDBContainer, MDBFile, MDBRow, MDBCard, MDBModalBody, MDBInput, MDBCardBody, MDBBtn, MDBModal, MDBModalDialog, MDBRadio, MDBModalContent, MDBModalHeader, MDBModalTitle, MDBTextArea, MDBModalFooter, } from 'mdb-react-ui-kit';
+import { MDBCol, MDBContainer, MDBFile, MDBRow, MDBCard, MDBFooter, MDBModalBody, MDBInput, MDBCardBody, MDBBtn, MDBModal, MDBModalDialog, MDBRadio, MDBModalContent, MDBModalHeader, MDBModalTitle, MDBModalFooter } from 'mdb-react-ui-kit';
 import { AiOutlineSolution } from "react-icons/ai";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+
 import { BsChatLeftText } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import React, { useState, useRef } from "react";
+import { Link } from "react-router-dom";
+import { AiOutlineSearch } from "react-icons/ai";
+import { AiFillHome } from "react-icons/ai";
+
+import { useNavigate } from "react-router-dom";
+
+import { BiLogOut } from "react-icons/bi";
 
 const Bossmypage = () => {
     const [basicModal, setBasicModal] = useState(false);
     const [selectedFood, setSelectedFood] = useState("Pizza");
+    const navigate = useNavigate();
     const shopname = useRef();
     const shopdescription = useRef();
-    const pizza = useRef();
+
     const [image, setImage] = useState(null);
     const [imageSrc, setImageSrc] = useState(null);
 
@@ -34,17 +42,23 @@ const Bossmypage = () => {
     const handleRadioChange = (event) => {
         console.log(event.target.value)
         setSelectedFood(event.target.value);
-      };
+    };
     const submithandler = (event) => {
         event.preventDefault();
         const formData = new FormData();
         formData.append("name", shopname.current.value)
         formData.append("description", shopdescription.current.value)
         formData.append("file", image)
-        formData.append("cate",selectedFood)
+        formData.append("cate", selectedFood)
 
-        fetch("", { method: "POST", headers: {}, body: formData }).then(res => res.json()).then(resData => console.log(resData)).catch(err => console.log(err))
+        fetch("http://localhost:8000/restaurants", { method: "POST", headers: {}, body: formData }).then(res => res.json()).then(resData => console.log(resData)).catch(err => console.log(err))
 
+    }
+    const Logouthandler = (event) => {
+        sessionStorage.removeItem("user")
+        sessionStorage.removeItem("accesstoken")
+        navigate("/")
+        window.location.reload();
     }
     return (
 
@@ -100,20 +114,18 @@ const Bossmypage = () => {
                                         ref={shopdescription}
                                     />
                                 </div>
-
                                 <div>
-                                    <MDBRadio type="radio" name='flexRadioDefault'  value='Pizza' label='Pizza'  onChange={handleRadioChange}/>
-                                    <MDBRadio type="radio" name='flexRadioDefault'  value='FastFood' label='FastFood' onChange={handleRadioChange} defaultChecked />
-                                    <MDBRadio type="radio" name='flexRadioDefault'  value='SnackBar' label='SnackBar' onChange={handleRadioChange} defaultChecked />
-                                    <MDBRadio type="radio" name='flexRadioDefault'  value='Salad' label='Salad' onChange={handleRadioChange} defaultChecked />
-                                    <MDBRadio type="radio" name='flexRadioDefault'  value='KoreanCuisine' label='KoreanCuisine' onChange={handleRadioChange} defaultChecked />
-                                    <MDBRadio type="radio" name='flexRadioDefault'  value='Meat' label='Meat' onChange={handleRadioChange} defaultChecked />
-                                    <MDBRadio type="radio" name='flexRadioDefault'  value='Fried' label='Fried' onChange={handleRadioChange} defaultChecked />
+                                    <MDBRadio type="radio" name='flexRadioDefault' value='Pizza' label='Pizza' onChange={handleRadioChange} />
+                                    <MDBRadio type="radio" name='flexRadioDefault' value='FastFood' label='FastFood' onChange={handleRadioChange} defaultChecked />
+                                    <MDBRadio type="radio" name='flexRadioDefault' value='SnackBar' label='SnackBar' onChange={handleRadioChange} defaultChecked />
+                                    <MDBRadio type="radio" name='flexRadioDefault' value='Salad' label='Salad' onChange={handleRadioChange} defaultChecked />
+                                    <MDBRadio type="radio" name='flexRadioDefault' value='KoreanCuisine' label='KoreanCuisine' onChange={handleRadioChange} defaultChecked />
+                                    <MDBRadio type="radio" name='flexRadioDefault' value='Meat' label='Meat' onChange={handleRadioChange} defaultChecked />
+                                    <MDBRadio type="radio" name='flexRadioDefault' value='Fried' label='Fried' onChange={handleRadioChange} defaultChecked />
                                     <MDBRadio type="radio" name='flexRadioDefault' value='Midnight' label='Midnight' onChange={handleRadioChange} defaultChecked />
                                     <MDBRadio type="radio" name='flexRadioDefault' value='Dessert' label='Dessert' onChange={handleRadioChange} defaultChecked />
-                                    <MDBRadio type="radio" name='flexRadioDefault'  value='Noodles' label='Noodles' onChange={handleRadioChange} defaultChecked />
+                                    <MDBRadio type="radio" name='flexRadioDefault' value='Noodles' label='Noodles' onChange={handleRadioChange} defaultChecked />
                                 </div>
-
                                 <div className="mb-3">
                                     <MDBFile
                                         labelClass='col-form-label'
@@ -133,6 +145,23 @@ const Bossmypage = () => {
                     </MDBModalContent>
                 </MDBModalDialog>
             </MDBModal>
+            <MDBFooter bgColor='light' className={classes.footer}>
+                <MDBContainer className='p-4'>
+
+                    <MDBRow className={classes.row}>
+                        <MDBCol>
+                            <MDBBtn> <AiOutlineSearch size="25" /> 검색 </MDBBtn>
+                        </MDBCol>
+                        <MDBCol>
+                            <Link to="/"> <AiFillHome size="50" />  </Link>
+                        </MDBCol>
+                        <MDBCol>
+                            <Link to="/" onClick={Logouthandler}> <BiLogOut size="50" /> </Link>
+
+                        </MDBCol>
+                    </MDBRow>
+                </MDBContainer>
+            </MDBFooter>
 
         </div >
 
