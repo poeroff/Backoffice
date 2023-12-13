@@ -1,31 +1,51 @@
-import React, { useState , useRef } from 'react';
+import React, { useState , useRef, useEffect } from 'react';
 import { MDBContainer, MDBTabs, MDBTabsItem, MDBTabsLink, MDBTabsContent, MDBTabsPane, MDBBtn, MDBIcon, MDBInput, MDBCheckbox } from 'mdb-react-ui-kit';
+import {useSelector} from "react-redux"
+import { useNavigate } from 'react-router-dom';
 import Kakao from './Kakao';
 import Google from './Google';
 import classes from "./Login.module.css"
+
 const Login = () => {
     const [justifyActive, setJustifyActive] = useState('tab1');
+    const [signerror , setsignerror] = useState()
     const Signusername = useRef();
     const Signemail= useRef();
     const Signpassword = useRef();
     const SignConfirmpassword = useRef();
     const loginemail = useRef();
     const loginpassword = useRef();
+    const navigate = useNavigate()
+    let session = window.sessionStorage
+   
+    const ownerYn = useSelector(state => state.Choice.User)
+  
+    
+   
+
 
     const signsubmithandler = (event) =>{
+       
         event.preventDefault();
-        fetch("",{
+        console.log(ownerYn)
+        fetch("http://localhost:8000/signup",{
             method : "POST" ,  
-            headers :{ "Contet-Type" : "application/json"},
-            body : JSON.stringify({email : Signemail.current.value, password : Signpassword.current.value ,Confirmpassword : SignConfirmpassword.current.value , username : Signusername.current.value})})
-            .then(res => res.json()).catch(err=>{
+            headers :{ "Content-Type": "application/json"},
+            body : JSON.stringify({email : Signemail.current.value, password : Signpassword.current.value ,passwordCheck : SignConfirmpassword.current.value , nickname : Signusername.current.value , ownerYn : ownerYn})})
+            .then(res => res.json()).then(resData => {if(resData.success === false){
+                setsignerror(resData.message)
+            }else if(resData.success === true){
+                setJustifyActive("tab1")
+
+            }
+        }).catch(err=>{
             console.log(err);
         })
     }
 
     const loginsubmithandler = (event)=>{
         event.preventDefault();
-        fetch("",{method : "POST" , headers : {"Content-Type" : "application/json"} , body : JSON.stringify({email : loginemail.current.value ,password : loginpassword.current.value})})
+        fetch("http://localhost:8000/signin",{method : "POST" , headers : {"Content-Type" : "application/json"} , body : JSON.stringify({email : loginemail.current.value ,password : loginpassword.current.value})})
         .then(res=>res.json())
         .then(resData => console.log(resData)).catch(err =>{
             console.log(err);
@@ -73,6 +93,7 @@ const Login = () => {
             </form>}
 
             {justifyActive === "tab2" && <form onSubmit={signsubmithandler}>
+                {signerror && <p> {signerror} </p>}
                 <MDBInput wrapperClass='mb-4' label='Username' type='text' ref={Signusername}/>
                 <MDBInput wrapperClass='mb-4' label='Email'  type='email' ref={Signemail}/>
                 <MDBInput wrapperClass='mb-4' label='Password' type='password' ref={Signpassword} />

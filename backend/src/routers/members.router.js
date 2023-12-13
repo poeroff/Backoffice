@@ -8,7 +8,8 @@ const router = express.Router();
 // 회원가입 /auth/signup
 router.post('/signup', async (req, res) => {
     try {
-        const { email, nickname, password, passwordCheck, ownerYn } = req.body;
+        const { email, password, passwordCheck,  nickname,  ownerYn } = req.body;
+       
         if (!email) {
             return res.status(400).json({
                 success: false,
@@ -59,6 +60,7 @@ router.post('/signup', async (req, res) => {
         }
 
         let emailValidationRegex = new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}');
+       
 
         const isValidEmail = emailValidationRegex.test(email);
         if (!isValidEmail) {
