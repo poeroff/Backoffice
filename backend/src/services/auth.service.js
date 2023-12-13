@@ -42,6 +42,7 @@ export class AuthService {
     };
 
     signin = async ({ email, password }) => {
+        
         const member = await prisma.members.findFirst({
             where: { email },
         });

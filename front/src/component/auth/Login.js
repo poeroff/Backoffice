@@ -45,9 +45,16 @@ const Login = () => {
 
     const loginsubmithandler = (event)=>{
         event.preventDefault();
-        fetch("http://localhost:8000/signin",{method : "POST" , headers : {"Content-Type" : "application/json"} , body : JSON.stringify({email : loginemail.current.value ,password : loginpassword.current.value})})
+        const ownerYn = sessionStorage.getItem("user")
+        fetch("http://localhost:8000/signin",{method : "POST" , headers : {"Content-Type" : "application/json"} , body : JSON.stringify({email : loginemail.current.value ,password : loginpassword.current.value, ownerYn: ownerYn})})
         .then(res=>res.json())
-        .then(resData => console.log(resData)).catch(err =>{
+        .then(resData =>{if(resData.success === false){
+            setsignerror(resData.message)
+        }else if(resData.success === true){
+            session.setItem("accesstoken",resData.data.accessToken)
+            navigate("/")
+        }
+    }).catch(err =>{
             console.log(err);
         })
     }

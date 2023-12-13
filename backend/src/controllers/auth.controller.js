@@ -101,6 +101,7 @@ export class AuthController {
     signin = async (req, res, next) => {
         try {
             const { email, password } = req.body;
+            console.log(email,password)
 
             if (!email) {
                 return res.status(400).json({
