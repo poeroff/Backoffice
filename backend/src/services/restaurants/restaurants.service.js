@@ -3,7 +3,7 @@ import { Success } from '../../utiles/success/success.js';
 import RestaurantsRepository from '../../repositories/restaurants/restaurants.repository.js';
 import MembersRepository from '../../repositories/member/members.repository.js';
 import { s3upload } from '../../utiles/function/s3.upload.js';
-import { OWNER } from '../../utiles/\bconstants/constants.js';
+import { OWNER } from '../../utiles/constants/constants.value.js';
 
 export default class RestaurantsService {
     restaurantsRepository = new RestaurantsRepository();
