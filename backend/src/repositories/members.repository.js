@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { PASSWORD_HASH_SALT_ROUNDS } from '../constants/security.constant.js';
-import { prisma } from '../utiles/prisma/prisma.js';
+import prisma from '../utiles/prisma/prisma.js';
 
 export class UsersRepository {
     createOne = async ({ email, password, name }) => {
