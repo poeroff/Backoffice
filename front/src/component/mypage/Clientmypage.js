@@ -31,7 +31,6 @@ const Clientmypage = () => {
                                         <div>
                                             <MDBBtn outline color="dark" rounded size="sm">P.</MDBBtn>
                                             
-                                           
                                         </div>
                                     </div>
                                 </div>

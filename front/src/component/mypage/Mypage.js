@@ -7,8 +7,8 @@ const Mypage = () =>{
     const user = useSelector(state => state.Choice.User)
     return(
         <div>
-               {sessionStorage.getItem("user") === "client" &&  <Clientmypage></Clientmypage>}
-               {sessionStorage.getItem("user") ==="boss" && <Bossmypage></Bossmypage>}
+               {sessionStorage.getItem("user") === "OWNER" &&  <Clientmypage></Clientmypage>}
+               {sessionStorage.getItem("user") ==="USER" && <Bossmypage></Bossmypage>}
 
         </div>
      

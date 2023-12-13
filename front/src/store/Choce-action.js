@@ -9,11 +9,11 @@ const Choiceslice = createSlice({
     },
     reducers :{
         Bossuser(state){
-            state.User = "Boss"
+            state.User = "USER"
 
         },
         clientuser(state){
-            state.User = "Client"
+            state.User = "OWNER"
         },
 
     }

@@ -18,7 +18,6 @@ const Login = () => {
     const navigate = useNavigate()
     let session = window.sessionStorage
    
-    const ownerYn = useSelector(state => state.Choice.User)
   
     
    
@@ -27,6 +26,8 @@ const Login = () => {
     const signsubmithandler = (event) =>{
        
         event.preventDefault();
+        const ownerYn = sessionStorage.getItem("user")
+        
         console.log(ownerYn)
         fetch("http://localhost:8000/signup",{
             method : "POST" ,  

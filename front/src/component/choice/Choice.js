@@ -19,11 +19,11 @@ const Choiceuser = (props) => {
     
     const Choicehandler = (value) => {
         if(value ==="boss"){
-            session.setItem("user", "boss")
+            session.setItem("user", "OWNER")
             dispatch(ChoicActions.Bossuser())
         }
         else if(value ==="client"){
-            session.setItem("user", "client")
+            session.setItem("user", "USER")
             dispatch(ChoicActions.clientuser());
         }
         navigate("/Login")
