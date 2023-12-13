@@ -1,4 +1,4 @@
-import { AuthService } from '../services/auth.service.js'
+import { AuthService } from '../services/auth.service.js';
 
 export class AuthController {
     constructor() {
@@ -60,7 +60,7 @@ export class AuthController {
             }
 
             let emailValidationRegex = new RegExp(
-                '[a-z0-9._]+@[a-z]+.[a-z]{2,3}'
+                '[a-z0-9._]+@[a-z]+\\.[a-z]{2,3}'
             );
             const isValidEmail = emailValidationRegex.test(email);
             if (!isValidEmail) {
@@ -74,6 +74,7 @@ export class AuthController {
                 email,
                 nickname,
                 password,
+                ownerYn,
             });
 
             return res.status(201).json({
@@ -89,6 +90,7 @@ export class AuthController {
             });
         }
     };
+
     signin = async (req, res, next) => {
         try {
             const { email, password } = req.body;
@@ -119,7 +121,7 @@ export class AuthController {
                 'customized_secret_key'
             );
 
-            await accessToken = await this.authService.signin({ email, password })
+            // const accessToken = await this.authService.signin({ email, password })
 
             res.cookie('authorization', `Bearer ${token}`);
             return res.status(200).json({ message: '로그인에 성공했습니다.' });
