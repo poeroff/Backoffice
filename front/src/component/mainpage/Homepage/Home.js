@@ -36,7 +36,7 @@ const Home = () => {
             </MDBInputGroup> */}
             <form className={classes.OrderMenu}>
                 <div className={classes.flexContainer}>
-                    <Link to="pizze" className={classes.menuItem}>
+                    <Link to="pizza" className={classes.menuItem}>
                         <img src="https://cdn-icons-png.flaticon.com/128/5861/5861040.png" alt="Pizza Icon" />
                         <p>피자</p>
                     </Link>
@@ -101,7 +101,7 @@ const Home = () => {
 
                     </MDBCol>
                     <MDBCol>
-                    <Link to ="mypage"> <AiOutlineUser  size="50"/>  </Link>
+                    <Link to ="mypage/"> <AiOutlineUser  size="50"/>  </Link>
 
                     </MDBCol>
                     <MDBCol>

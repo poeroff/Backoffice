@@ -1,7 +1,7 @@
 import bcrpyt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { PASSWORD_SALT_ROUNDS } from '../constants/security.constant.js';
-import prisma from '../utiles/prisma/prisma.js';
+import {prisma} from '../utiles/prisma/prisma.js';
 import * as HttpStatus from '../errors/http-status.error.js';
 
 export class AuthService {

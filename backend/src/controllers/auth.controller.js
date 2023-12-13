@@ -7,8 +7,8 @@ export class AuthController {
 
     signup = async (req, res, next) => {
         try {
-            const { email, nickname, password, passwordCheck, ownerYn } =
-                req.body;
+            const { email, nickname, password, passwordCheck, ownerYn } =req.body;
+            console.log(email)
 
             if (!email) {
                 return res.status(400).json({
@@ -20,7 +20,7 @@ export class AuthController {
             if (!password) {
                 return res.status(400).json({
                     success: false,
-                    message: '비밀번호 입력이 필요합니다.',
+                    accestoken: '비밀번호 입력이 필요합니다.',
                 });
             }
 

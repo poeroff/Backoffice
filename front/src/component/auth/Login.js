@@ -32,12 +32,11 @@ const Login = () => {
         fetch("http://localhost:8000/signup",{
             method : "POST" ,  
             headers :{ "Content-Type": "application/json"},
-            body : JSON.stringify({email : Signemail.current.value, password : Signpassword.current.value ,passwordCheck : SignConfirmpassword.current.value , nickname : Signusername.current.value , ownerYn : ownerYn})})
+            body : JSON.stringify({email : Signemail.current.value,  nickname : Signusername.current.value  , password : Signpassword.current.value ,passwordCheck : SignConfirmpassword.current.value , ownerYn : ownerYn})})
             .then(res => res.json()).then(resData => {if(resData.success === false){
                 setsignerror(resData.message)
             }else if(resData.success === true){
                 setJustifyActive("tab1")
-
             }
         }).catch(err=>{
             console.log(err);

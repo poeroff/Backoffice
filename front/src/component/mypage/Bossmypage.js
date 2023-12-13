@@ -1,7 +1,120 @@
+import classes from "./Bossmypage.module.css"
+import { AiOutlineUser } from "react-icons/ai";
+import { MDBCol, MDBContainer, MDBFile, MDBRow, MDBCard, MDBModalBody, MDBInput, MDBCardBody, MDBBtn, MDBModal, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalTitle, MDBTextArea, MDBModalFooter, } from 'mdb-react-ui-kit';
+import { AiOutlineSolution } from "react-icons/ai";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { BsChatLeftText } from "react-icons/bs";
+import { AiOutlinePlus } from "react-icons/ai";
+import React, { useState, useRef } from "react";
 
-const Bossmypage = () =>{
+const Bossmypage = () => {
+    const [basicModal, setBasicModal] = useState(false);
+    const shopname = useRef();
+    const shopdescription = useRef();
+    const [image, setImage] = useState(null);
+    const [imageSrc, setImageSrc] = useState(null);
+
+    const toggleOpen = () => setBasicModal(!basicModal);
+    const onUpload = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        setImage(file)
+        console.log(file)
+        reader.readAsDataURL(file);
+
+        return new Promise((resolve) => {
+            reader.onload = () => {
+                setImageSrc(reader.result || null); // 파일의 컨텐츠
+                resolve();
+            };
+        });
+    }
+    const submithandler = (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        console.log(image)
+        formData.append("name",shopname.current.value)
+        formData.append("description",shopdescription.current.value)
+        formData.append("image",image)
+
+        fetch("",{method:"POST", headers: {},body:formData}).then(res => res.json()).then(resData => console.log(resData)).catch(err => console.log(err))
+      
+    }
     return (
-        <h1> BOSS </h1>
+      
+            <div className="vh-100" style={{ backgroundColor: '#eee' }}>
+                <MDBContainer>
+                    <MDBRow className="justify-content-center">
+                        <MDBCol md="9" lg="7" xl="5" className="mt-5">
+                            <MDBCard style={{ borderRadius: '15px', backgroundColor: '#93e2bb' }}>
+                                <MDBCardBody className="p-4 text-black">
+                                    <div>
+                                    </div>
+                                    <div className="d-flex align-items-center mb-4">
+                                        <div className="flex-shrink-0">
+                                            <AiOutlineUser size="75" />
+                                        </div>
+                                        <div className="flex-grow-1 ms-3">
+                                            <button className={classes.plus} onClick={toggleOpen}><AiOutlinePlus size="25" /> </button>
+                                            <div className="d-flex flex-row align-items-center mb-2">
+                                                <p className="mb-0 me-2">nickname</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div className={classes.mypagebtn}>
+                                        <AiOutlineSolution size="60" className={classes.icon} /> 
+                                        <BsChatLeftText size="55" className={classes.icon} />
+                                    </div>
+                                </MDBCardBody>
+                            </MDBCard>
+                        </MDBCol>
+                    </MDBRow>
+                </MDBContainer>
+                <MDBModal open={basicModal} setOpen={setBasicModal} tabIndex='-1'>
+                    <MDBModalDialog>
+                        <MDBModalContent>
+                            <MDBModalHeader>
+                                <MDBModalTitle>Modal title</MDBModalTitle>
+                                <MDBBtn className='btn-close' color='none' onClick={toggleOpen}></MDBBtn>
+                            </MDBModalHeader>
+                            <MDBModalBody>
+                                <form onSubmit={submithandler}>
+                                    <div className='mb-3'>
+                                        <MDBInput
+                                            labelClass='col-form-label'
+                                            label='가게명:'
+                                            ref={shopname}
+                                        />
+                                    </div>
+                                    <div className='mb-3'>
+                                        <MDBInput
+                                            labelClass='col-form-label'
+                                            label='설명:'
+                                            ref={shopdescription}
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <MDBFile
+                                            labelClass='col-form-label'
+                                            label='베너 이미지'
+                                            onChange={e => onUpload(e)}>
+                                        </MDBFile>
+                                    </div>
+                                    <MDBModalFooter>
+                                        <MDBBtn color='secondary' onClick={toggleOpen}>
+                                            Close
+                                        </MDBBtn>
+                                        <MDBBtn onClick={toggleOpen} type="submit">Understood</MDBBtn>
+                                    </MDBModalFooter>
+                                </form>
+                            </MDBModalBody>
+                        </MDBModalContent>
+                    </MDBModalDialog>
+                </MDBModal>
+
+            </div >
+      
     )
 
 }

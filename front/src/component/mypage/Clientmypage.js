@@ -4,7 +4,6 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCar
 import { AiOutlineSolution } from "react-icons/ai";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BsChatLeftText } from "react-icons/bs";
-import { AiFillGold } from "react-icons/ai";
 
 
 const Clientmypage = () => {
