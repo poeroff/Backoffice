@@ -12,15 +12,18 @@ import { useNavigate } from "react-router-dom";
 const Choiceuser = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    let session = window.sessionStorage;
     
    
 
     
     const Choicehandler = (value) => {
         if(value ==="boss"){
+            session.setItem("user", "boss")
             dispatch(ChoicActions.Bossuser())
         }
         else if(value ==="client"){
+            session.setItem("user", "client")
             dispatch(ChoicActions.clientuser());
         }
         navigate("/Login")

@@ -7,13 +7,19 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { AiFillHome } from "react-icons/ai";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import { AiOutlineUser } from "react-icons/ai";
-import { BsFillCartFill } from "react-icons/bs";
+import { BiLogOut } from "react-icons/bi";
 
 
 
 
 
 const Home = () => {
+
+    const Logouthandler = (event) =>{
+        sessionStorage.removeItem("user")
+        sessionStorage.removeItem("accesstoken")
+        window.location.reload();
+    }
     return (
         <>
             <div className={classes.btn}>
@@ -87,7 +93,7 @@ const Home = () => {
                        
 
                     <MDBCol>
-                    <MDBBtn> <BsFillCartFill size="25"/> 장바구니 </MDBBtn>
+                    <MDBBtn> <AiOutlineFileSearch size="25"/> 주문 내역 </MDBBtn>
 
                     </MDBCol>
                     <MDBCol>
@@ -95,11 +101,11 @@ const Home = () => {
 
                     </MDBCol>
                     <MDBCol>
-                    <MDBBtn> <AiOutlineFileSearch size="25"/> 주문 내역 </MDBBtn>
+                    <Link to ="mypage"> <AiOutlineUser  size="50"/>  </Link>
 
                     </MDBCol>
                     <MDBCol>
-                    <Link to ="mypage"> <AiOutlineUser  size="50"/>  </Link>
+                    <Link to ="/" onClick={Logouthandler}> <BiLogOut size="50"/> </Link>
 
                     </MDBCol>
                     </MDBRow>
