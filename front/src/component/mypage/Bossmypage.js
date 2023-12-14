@@ -50,8 +50,8 @@ const Bossmypage = () => {
         formData.append("description", shopdescription.current.value)
         formData.append("file", image)
         formData.append("cate", selectedFood)
-
-        fetch("http://localhost:8000/restaurants", { method: "POST", headers: {}, body: formData }).then(res => res.json()).then(resData => console.log(resData)).catch(err => console.log(err))
+        const accessToken = sessionStorage.getItem("accesstoken")
+        fetch("http://localhost:8000/restaurants", { method: "POST", headers: {authorization: accessToken}, body: formData }).then(res => res.json()).then(resData => console.log(resData)).catch(err => console.log(err))
 
     }
     const Logouthandler = (event) => {

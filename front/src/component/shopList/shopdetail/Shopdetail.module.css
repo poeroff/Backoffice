@@ -35,3 +35,12 @@
     
     margin: 0px auto;
 }
+.row{
+    display: flex
+}
+.footer{
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
