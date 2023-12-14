@@ -3,7 +3,6 @@ import { Success } from '../../utiles/success/success.js';
 import RestaurantsRepository from '../../repositories/restaurants/restaurants.repository.js';
 import MembersRepository from '../../repositories/member/members.repository.js';
 import { s3upload } from '../../utiles/function/s3.upload.js';
-//import { OWNER } from '../../utiles/constants/constants.value.js';
 
 export default class RestaurantsService {
     restaurantsRepository = new RestaurantsRepository();
@@ -16,7 +15,6 @@ export default class RestaurantsService {
      * @param {string} memberId
      */
     createRestaurant = async (fileObj, bodyObj, memberId) => {
-       
         if (!bodyObj.name) {
             throw new Exception(400, '사업장 이름은 필수 입력값 입니다.');
         } else if (!bodyObj.cate) {
@@ -26,14 +24,13 @@ export default class RestaurantsService {
         }
 
         const selectMember = await this.memberRepository.getMember(memberId);
-        if (selectMember.ownerYn !== "OWNER") {
+        if (selectMember.ownerYn !== 'OWNER') {
             throw new Exception(
                 400,
                 '사장님이 아닌 회원은 음식점을 등록할수 없습니다.'
             );
         }
 
-        
         const selectRestaurant = await this.restaurantsRepository.getRestaurant(
             memberId
         );
@@ -43,9 +40,8 @@ export default class RestaurantsService {
                 '해당 사장님은 이미 음식점을 등록하셨습니다.'
             );
         }
-        
+
         const imageUploadResult = await s3upload(fileObj);
-       
 
         const newRestaurant = new Restaurant(
             +selectMember.id,
@@ -54,7 +50,6 @@ export default class RestaurantsService {
             bodyObj.cate,
             imageUploadResult.Location
         );
-        
         const createdRestaurant =
             await this.restaurantsRepository.createdRestaurant(newRestaurant);
 
@@ -145,5 +140,3 @@ class Restaurant {
         this.image = image;
     }
 }
-
-// name, description, cate, image
