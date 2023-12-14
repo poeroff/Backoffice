@@ -1,11 +1,4 @@
 import { AuthService } from '../services/auth.service.js';
-import bcrypt from 'bcrypt';
-import {
-    JWT_ACCESS_TOKEN_EXPIRES_IN,
-    JWT_ACCESS_TOKEN_SECRET,
-    PASSWORD_SALT_ROUNDS,
-} from '../constants/security.constant.js';
-import jwt from 'jsonwebtoken';
 
 export class AuthController {
     constructor() {
@@ -90,11 +83,7 @@ export class AuthController {
                 data,
             });
         } catch (error) {
-            console.log(error);
-            return res.status(500).json({
-                message:
-                    '예상치 못한 에러가 발생하였습니다. 관리자에게 문의 하세요.',
-            });
+            next(error);
         }
     };
 
@@ -120,18 +109,13 @@ export class AuthController {
                 email,
                 password,
             });
-
             return res.status(200).json({
                 success: true,
                 message: '로그인에 성공했습니다.',
                 data: { accessToken },
             });
         } catch (error) {
-            console.log(error);
-            return res.status(500).json({
-                message:
-                    '예상치 못한 에러가 발생하였습니다. 관리자에게 문의 하세요.',
-            });
+            next(error);
         }
     };
 }
