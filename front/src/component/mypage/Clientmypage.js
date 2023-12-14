@@ -23,7 +23,7 @@ const Clientmypage = (props) => {
                                     </div>
                                     <div className="flex-grow-1 ms-3">
                                         <div className="d-flex flex-row align-items-center mb-2">
-                                            <p className="mb-0 me-2">{props.user.nickname}</p>
+                                            <p className="mb-0 me-2">{props.user.nickname} 고객님</p>
                                             
 
                                         </div>

@@ -78,7 +78,7 @@ const Bossmypage = (props) => {
                                     <div className="flex-grow-1 ms-3">
                                         <button className={classes.plus} onClick={toggleOpen}><AiOutlinePlus size="25" /> </button>
                                         <div className="d-flex flex-row align-items-center mb-2">
-                                            <p className="mb-0 me-2">{props.user.nickname}</p>
+                                            <p className="mb-0 me-2">{props.user.nickname} 사장님</p>
                                         </div>
                                     </div>
                                 </div>
@@ -91,7 +91,9 @@ const Bossmypage = (props) => {
                         </MDBCard>
                     </MDBCol>
                 </MDBRow>
+                
             </MDBContainer>
+            {props.Restaurants.length > 0 && <p>asdsad</p>}
             <MDBModal open={basicModal} setOpen={setBasicModal} tabIndex='-1'>
                 <MDBModalDialog>
                     <MDBModalContent>
@@ -146,6 +148,7 @@ const Bossmypage = (props) => {
                     </MDBModalContent>
                 </MDBModalDialog>
             </MDBModal>
+            
             <MDBFooter bgColor='light' className={classes.footer}>
                 <MDBContainer className='p-4'>
 
