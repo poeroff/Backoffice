@@ -3,7 +3,6 @@ import { Success } from '../../utiles/success/success.js';
 import RestaurantsRepository from '../../repositories/restaurants/restaurants.repository.js';
 import MembersRepository from '../../repositories/member/members.repository.js';
 import { s3upload } from '../../utiles/function/s3.upload.js';
-import { OWNER } from '../../utiles/constants/constants.value.js';
 
 export default class RestaurantsService {
     restaurantsRepository = new RestaurantsRepository();
@@ -25,7 +24,7 @@ export default class RestaurantsService {
         }
 
         const selectMember = await this.memberRepository.getMember(memberId);
-        if (selectMember.ownerYn !== OWNER) {
+        if (selectMember.ownerYn !== 'OWNER') {
             throw new Exception(
                 400,
                 '사장님이 아닌 회원은 음식점을 등록할수 없습니다.'
@@ -141,5 +140,3 @@ class Restaurant {
         this.image = image;
     }
 }
-
-// name, description, cate, image
