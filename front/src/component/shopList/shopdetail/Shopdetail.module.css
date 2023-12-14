@@ -1,0 +1,31 @@
+
+
+
+.detail{
+    
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 6%;
+    border: 1px solid black;
+}
+.buttondiv{
+    width: 50%;
+    
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 30%;
+   
+
+    border: 1px solid gray;
+}
+.detailbutton{
+    list-style: none;
+    background-color: white;
+    border: none;
+    
+    
+    display: flex;
+    outline: none;
+}
