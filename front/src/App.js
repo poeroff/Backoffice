@@ -4,7 +4,7 @@ import {createBrowserRouter ,RouterProvider} from "react-router-dom"
 import Root from "./component/mainpage/root/Root"
 import Login from "./component/auth/Login"
 import Shop , {loader as shoploader}from "./component/shopList/Shop"
-import Mypage from "./component/mypage/Mypage"
+import Mypage ,{loader as pageloader}from "./component/mypage/Mypage"
 import Shopdetail ,{loader as shopdetailloader } from "./component/shopList/shopdetail/Shopdetail"
 
 
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
 
       {path :":shopid" ,element : <Shopdetail></Shopdetail>, loader : shopdetailloader}
     ]},
-    {path : "mypage", element : <Mypage></Mypage>}
+    {path : "mypage", element : <Mypage></Mypage> ,loader : pageloader}
 
   ]},
 

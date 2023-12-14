@@ -1,19 +1,27 @@
 import jwt from 'jsonwebtoken';
-import { JWT_ACCESS_TOKEN_SECRET } from '../constants/security.costant.js';
+import {
+    JWT_ACCESS_TOKEN_SECRET,
+    JWT_ACCESS_TOKEN_EXPIRES_IN,
+} from '../constants/security.constant.js';
 
 export default async function (req, res, next) {
     try {
         //클라이언트에서 쿠키 전달
-        const { authorization } = req.cookies;
+        const { authorization } = req.headers;
+        
 
         //쿠키가 Bearer 형식인지 확인
-        const [tokenType, token] = authorization.split('');
+        const [tokenType, token] = authorization.split(' ');
+        
         if (tokenType !== 'Bearer')
             throw new Error('토큰 타입이 일치하지 않습니다.');
 
         //서버 발급 JWT 검증
-        const decodedToken = jwt.verify(token, 'customized_secret_key');
-        const id = decodedToken.id;
+        
+        const decodedToken = jwt.verify(token, JWT_ACCESS_TOKEN_SECRET);
+       
+        res.locals.user = decodedToken.memberId;
+        next();
     } catch (error) {
         res.clearCookie('authorization');
 

@@ -14,12 +14,13 @@ import { useNavigate } from "react-router-dom";
 
 import { BiLogOut } from "react-icons/bi";
 
-const Bossmypage = () => {
+const Bossmypage = (props) => {
     const [basicModal, setBasicModal] = useState(false);
     const [selectedFood, setSelectedFood] = useState("Pizza");
     const navigate = useNavigate();
     const shopname = useRef();
     const shopdescription = useRef();
+    console.log(props)
 
     const [image, setImage] = useState(null);
     const [imageSrc, setImageSrc] = useState(null);
@@ -77,7 +78,7 @@ const Bossmypage = () => {
                                     <div className="flex-grow-1 ms-3">
                                         <button className={classes.plus} onClick={toggleOpen}><AiOutlinePlus size="25" /> </button>
                                         <div className="d-flex flex-row align-items-center mb-2">
-                                            <p className="mb-0 me-2">nickname</p>
+                                            <p className="mb-0 me-2">{props.user.nickname}</p>
                                         </div>
                                     </div>
                                 </div>

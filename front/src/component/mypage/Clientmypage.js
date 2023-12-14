@@ -6,7 +6,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BsChatLeftText } from "react-icons/bs";
 
 
-const Clientmypage = () => {
+const Clientmypage = (props) => {
     return (
         <div className="vh-100" style={{ backgroundColor: '#eee' }}>
             <MDBContainer>
@@ -23,12 +23,12 @@ const Clientmypage = () => {
                                     </div>
                                     <div className="flex-grow-1 ms-3">
                                         <div className="d-flex flex-row align-items-center mb-2">
-                                            <p className="mb-0 me-2">nickname</p>
+                                            <p className="mb-0 me-2">{props.user.nickname}</p>
                                             
 
                                         </div>
                                         <div>
-                                            <MDBBtn outline color="dark" rounded size="sm">P.</MDBBtn>
+                                            <MDBBtn outline color="dark" rounded size="sm">Point .   {props.user.money}</MDBBtn>
                                             
                                         </div>
                                     </div>

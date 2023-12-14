@@ -82,7 +82,6 @@ const Shopdetail = () => {
             </MDBModal>
             <MDBFooter bgColor='light' className={classes.footer}>
                 <MDBContainer className='p-4'>
-
                     <MDBRow className={classes.row}>
                         <MDBCol>
                             <MDBBtn onClick={() => setScrollableModal(!scrollableModal)} > <AiOutlineFileSearch size="25" /> 주문 내역 </MDBBtn>
