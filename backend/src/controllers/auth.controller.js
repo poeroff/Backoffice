@@ -89,7 +89,7 @@ export class AuthController {
 
     signin = async (req, res, next) => {
         try {
-            const { email, password } = req.body;
+            const { email, password, ownerYn } = req.body;
 
             if (!email) {
                 return res.status(400).json({
@@ -108,6 +108,7 @@ export class AuthController {
             const accessToken = await this.authService.signin({
                 email,
                 password,
+                ownerYn,
             });
             return res.status(200).json({
                 success: true,

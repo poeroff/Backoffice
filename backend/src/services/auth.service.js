@@ -34,8 +34,13 @@ export class AuthService {
         return newMember;
     };
 
-    signin = async ({ email, password }) => {
+    signin = async ({ email, password, ownerYn }) => {
         const member = await this.membersRepository.readOneByEmail(email);
+
+        if (ownerYn !== member.ownerYn) {
+            throw new Error(`${ownerYn}이(가) 아닙니다.`);
+        }
+
         const hashedPassword = member?.password ?? '';
 
         const isPasswordMatched = bcrypt.compareSync(password, hashedPassword);
