@@ -46,6 +46,7 @@ const Login = () => {
         fetch("http://localhost:8000/signin",{method : "POST" , headers : {"Content-Type" : "application/json"} , body : JSON.stringify({email : loginemail.current.value ,password : loginpassword.current.value, ownerYn: ownerYn})})
         .then(res=>res.json())
         .then(resData =>{if(resData.success === false){
+            console.log(resData)
             setsignerror(resData.message)
         }else if(resData.success === true){
             session.setItem("accesstoken",resData.data.accessToken)

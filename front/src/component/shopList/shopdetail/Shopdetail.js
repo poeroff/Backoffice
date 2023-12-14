@@ -13,8 +13,8 @@ const Shopdetail = () =>{
         </div>
         <div className={classes.buttondiv}>
             <button className={classes.detailbutton}> 메뉴 </button>
-            <button className={classes.detailbutton}>정보</button>
-            <button className={classes.detailbutton}>리뷰</button>
+            <button className={classes.detailbutton}> 정보</button>
+            <button className={classes.detailbutton}> 리뷰</button>
 
         </div>
         </>
