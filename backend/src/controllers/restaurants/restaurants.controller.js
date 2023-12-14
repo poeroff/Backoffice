@@ -77,7 +77,27 @@ export default class RestaurantsController {
                     restaurantId
                 );
 
-            res.status(createdResult.status).json(createdResult);
+            res.status(updatedResult.status).json(updatedResult);
+        } catch (err) {
+            return res.status(err.status).json({ data: err });
+        }
+    };
+
+    /**
+     * 음식점 삭제 API
+     * @param {*} req
+     * @param {*} res
+     */
+    deleteRestaurant = async (req, res) => {
+        const memberId = 4;
+
+        try {
+            const deleteResult = await this.restaurantsService.deleteRestaurant(
+                req.params,
+                memberId
+            );
+
+            res.status(deleteResult.status).json(deleteResult);
         } catch (err) {
             return res.status(err.status).json({ data: err });
         }

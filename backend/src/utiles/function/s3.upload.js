@@ -22,7 +22,7 @@ export const s3upload = async fileObj => {
         Key: v4(),
         Body: fileObj.buffer,
         ContentType: fileObj.mimetype,
-        ALC: 'public-read',
+        ACL: 'public-read',
     };
 
     const result = await s3.upload(params).promise();

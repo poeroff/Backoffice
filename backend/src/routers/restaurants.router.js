@@ -36,4 +36,11 @@ router.put(
     restaurantsController.updateRestaurant
 );
 
+/**
+ * 음식점 삭제 API
+ */
+router.delete(
+    '/restaurants/:cate/:restaurantId',
+    restaurantsController.deleteRestaurant
+);
 export default router;
