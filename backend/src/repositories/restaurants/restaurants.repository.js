@@ -1,3 +1,4 @@
+import { Exception } from '../../utiles/exception/Exception.js';
 import prisma from '../../utiles/prisma/prisma.js';
 
 export default class RestaurantsRepository {
@@ -86,18 +87,36 @@ export default class RestaurantsRepository {
      * @param {*} updateObj
      * @returns
      */
-    updateRestaurant = async (memberId, name, description, cate, image, id) => {
-        const updatedRestaurant = await prisma.restaurants.update({
-            where: { id: +id },
-            data: {
-                memberId,
-                name,
-                description,
-                cate,
-                image,
-            },
-        });
-        console.log(updatedRestaurant);
-        return updatedRestaurant;
+    updateRestaurant = async (updateObj, id) => {
+        try {
+            const updatedRestaurant = await prisma.restaurants.update({
+                where: { id: +id },
+                data: {
+                    ...updateObj,
+                },
+            });
+            console.log(updatedRestaurant);
+            return updatedRestaurant;
+        } catch (err) {
+            console.log(err);
+            throw new Exception().exceptionServer();
+        }
+    };
+
+    /**
+     * 음식점 삭제
+     * @param {*} restaurantId
+     */
+    deleteRestaurant = async id => {
+        try {
+            const deletedRestaurant = await prisma.restaurants.delete({
+                where: { id: +id },
+            });
+
+            return deletedRestaurant;
+        } catch (err) {
+            console.log(err);
+            throw new Exception(500, '알수없는 에러');
+        }
     };
 }

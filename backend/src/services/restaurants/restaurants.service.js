@@ -100,6 +100,14 @@ export default class RestaurantsService {
         }
     };
 
+    /**
+     * 음식점 수정
+     * @param {*} fileObj
+     * @param {*} bodyObj
+     * @param {*} memberId
+     * @param {*} restaurantId
+     * @returns
+     */
     updateRestaurant = async (fileObj, bodyObj, memberId, restaurantId) => {
         if (!bodyObj.name && !bodyObj.cate && !fileObj) {
             throw new Exception(400, '변경 사항이 존재하지 않습니다.');
@@ -114,20 +122,58 @@ export default class RestaurantsService {
 
         let imageUploadResult;
         if (fileObj) {
-            imageUploadResult = await s3upload(fileObj);
+            imageUploadResult = await s3upload(fileObj).Location;
+        } else {
+            imageUploadResult = selectRestaurant.image;
         }
 
-        console.log('디비 저장 시작 시작');
-        const updatedResult = await this.restaurantsRepository.updateRestaurant(
+        const updateRestaurant = new Restaurant(
             +selectRestaurant.member.id,
-            bodyObj.name,
-            bodyObj.description,
-            bodyObj.cate,
-            imageUploadResult.Location,
-            restaurantId
+            bodyObj.name ? bodyObj.name : selectRestaurant.name,
+            bodyObj.description
+                ? bodyObj.description
+                : selectRestaurant.description,
+            bodyObj.cate ? bodyObj.cate : selectRestaurant.cate,
+            imageUploadResult
         );
 
-        return new Success(201, '음식점 정보가 수정되었습니다', updatedResult);
+        try {
+            const updatedResult =
+                await this.restaurantsRepository.updateRestaurant(
+                    updateRestaurant,
+                    restaurantId
+                );
+
+            return new Success(
+                201,
+                '음식점 정보가 수정되었습니다',
+                updatedResult
+            );
+        } catch (err) {
+            return new Exception().exceptionServer();
+        }
+    };
+
+    /**
+     * 음식점 삭제
+     * @param {*} params
+     * @param {*} memberId
+     * @returns
+     */
+    deleteRestaurant = async (params, memberId) => {
+        const { restaurantId } = params;
+
+        const selectRestaurant =
+            await this.restaurantsRepository.getRestaurantAllInfo(restaurantId);
+
+        if (selectRestaurant.member.id !== memberId) {
+            throw new Exception(400, '해당 음식점 사장님 계정이 아닙니다.');
+        }
+
+        const deletedRestaurant =
+            await this.restaurantsRepository.deleteRestaurant(restaurantId);
+
+        return new Success(200, '삭제가 성공하였습니다', deletedRestaurant);
     };
 }
 
