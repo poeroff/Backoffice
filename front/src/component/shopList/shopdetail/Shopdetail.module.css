@@ -24,8 +24,14 @@
     list-style: none;
     background-color: white;
     border: none;
+    font-size: 2vmax;
     
     
     display: flex;
     outline: none;
+}
+.Info{
+    width: 50%;
+    
+    margin: 0px auto;
 }

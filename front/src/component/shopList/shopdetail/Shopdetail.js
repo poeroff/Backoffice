@@ -1,10 +1,35 @@
 import { useLoaderData } from "react-router-dom";
 import classes from "./Shopdetail.module.css"
+import { useState } from "react";
+import Menu from "./Menu";
+import Info from "./Info";
+import Review from "./Review";
 
 
 const Shopdetail = () =>{
     const data = useLoaderData();
-    console.log(data)
+    const [Menus, setMenu] = useState(true);
+    const [Infos , setInfo] = useState(false);
+    const [Reviews, setReview] = useState(false);
+
+   const Menuclick = () =>{
+    setMenu(true);
+    setInfo(false)
+    setReview(false)
+
+   }
+   const Infoclick = () =>{
+    setMenu(false);
+    setInfo(true)
+    setReview(false)
+    
+   }
+   const Reviewclick = () =>{
+    setMenu(false);
+    setInfo(false)
+    setReview(true)
+    
+   }
    
     return (
         <>
@@ -12,9 +37,14 @@ const Shopdetail = () =>{
             <h1>{data.data.name}</h1>
         </div>
         <div className={classes.buttondiv}>
-            <button className={classes.detailbutton}> 메뉴 </button>
-            <button className={classes.detailbutton}> 정보</button>
-            <button className={classes.detailbutton}> 리뷰</button>
+            <button className={classes.detailbutton} onClick={Menuclick}> 메뉴 </button>
+            <button className={classes.detailbutton} onClick={Infoclick}> 정보</button>
+            <button className={classes.detailbutton} onClick={Reviewclick}> 리뷰</button>
+        </div>
+        <div className={classes.Info}>
+            {Menus && <Menu></Menu>}
+            {Infos && <Info></Info>}
+            {Reviews && <Review></Review>}
 
         </div>
         </>
