@@ -6,12 +6,15 @@ export default class RestaurantsRepository {
      * @param {Object} createObj
      */
     createdRestaurant = async createObj => {
-        console.log(createObj);
-        await prisma.restaurants.create({
-            data: {
-                ...createObj,
-            },
-        });
+        try {
+            await prisma.restaurants.create({
+                data: {
+                    ...createObj,
+                },
+            });
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     /**
