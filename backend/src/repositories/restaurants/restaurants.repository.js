@@ -9,12 +9,7 @@ export default class RestaurantsRepository {
         console.log(createObj.name, createObj.cate);
         await prisma.Restaurants.create({
             data: {
-                memberId : createObj.memberId,
-
-                name : createObj.name,
-                description : createObj.description,
-                image : createObj.image,
-                cate : 0
+                ...createObj
 
 
                
