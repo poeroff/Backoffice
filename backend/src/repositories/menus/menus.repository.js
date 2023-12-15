@@ -33,12 +33,12 @@ export default class MenusRepository {
 
     /**
      * 메뉴 상세 조회 (음식id로 상세 조회)
-     * @param {*} restaurantId
+     * @param {*} menuId
      * @param {*} name
      * @returns
      */
     getMenu = async menuId => {
-        console.log(menuId);
+        console.log('메뉴 상세조회', menuId);
         const selectOneMenu = await prisma.menus.findFirst({
             where: {
                 id: +menuId,
@@ -61,5 +61,37 @@ export default class MenusRepository {
         });
 
         return getMenus;
+    };
+
+    /**
+     * 메뉴 수정
+     * @param {*} menuId
+     * @param {*} updateMenuObj
+     */
+    updateMenu = async (menuId, updateMenuObj) => {
+        const updatedMenu = await prisma.menus.update({
+            where: {
+                id: +menuId,
+            },
+            data: {
+                ...updateMenuObj,
+            },
+        });
+
+        return updatedMenu;
+    };
+
+    /**
+     * 메뉴 삭제
+     * @param {*} menuId
+     */
+    deleteMenu = async menuId => {
+        const deletedMenu = await prisma.menus.delete({
+            where: {
+                id: +menuId,
+            },
+        });
+
+        return deletedMenu;
     };
 }

@@ -96,7 +96,7 @@ export default class RestaurantsRepository {
                     ...updateObj,
                 },
             });
-            console.log(updatedRestaurant);
+
             return updatedRestaurant;
         } catch (err) {
             console.log(err);
