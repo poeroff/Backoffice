@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import RestaurantsController from '../controllers/restaurants/restaurants.controller.js';
 import uploadMiddleware from '../middleware/upload.middleware.js';
+import needSigninMiddleware from '../middleware/need-signin.middleware.js';
 
 const router = Router();
 const restaurantsController = new RestaurantsController();
@@ -10,6 +11,7 @@ const restaurantsController = new RestaurantsController();
  */
 router.post(
     '/restaurants',
+    needSigninMiddleware,
     uploadMiddleware.single('file'),
     restaurantsController.createRestaurant
 );
@@ -32,6 +34,7 @@ router.get(
  */
 router.put(
     '/restaurants/:cate/:restaurantId',
+    needSigninMiddleware,
     uploadMiddleware.single('file'),
     restaurantsController.updateRestaurant
 );
@@ -41,6 +44,7 @@ router.put(
  */
 router.delete(
     '/restaurants/:cate/:restaurantId',
+    needSigninMiddleware,
     restaurantsController.deleteRestaurant
 );
 export default router;

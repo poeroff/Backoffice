@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import MenusController from '../controllers/menus/menus.controller.js';
 import uploadMiddleware from '../middleware/upload.middleware.js';
+import needSigninMiddleware from '../middleware/need-signin.middleware.js';
 
 const router = Router();
 const menusController = new MenusController();
@@ -10,6 +11,7 @@ const menusController = new MenusController();
  */
 router.post(
     '/menus/:restaurantId',
+    needSigninMiddleware,
     uploadMiddleware.single('file'),
     menusController.createMenu
 );
@@ -29,8 +31,18 @@ router.get('/menu/:menuId', menusController.getMenu);
  */
 router.patch(
     '/menu/:restaurantId/:menuId',
+    needSigninMiddleware,
     uploadMiddleware.single('file'),
     menusController.updateMenu
+);
+
+/**
+ * 메뉴 삭제 API
+ */
+router.delete(
+    '/menu/:restaurantId/:menuId',
+    needSigninMiddleware,
+    menusController.deleteMenu
 );
 
 export default router;

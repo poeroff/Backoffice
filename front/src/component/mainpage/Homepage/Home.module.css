@@ -1,6 +1,6 @@
 
 .Homebtn {
-    width: 50%;
+    width: 100%;
     text-align: center;
     margin: 0 auto;
     z-index: 20;
@@ -8,8 +8,9 @@
     margin-top: 5%;
 
 }
-.inputWithButton {
-    margin-right: 5px;
+.form-contro {
+   width: 1%;
+   
 }
 .Delivery,
 .Packaging{
@@ -35,6 +36,8 @@
 }
 
 .OrderMenu {
+  
+  
     margin-top: 5%;
 }
 
@@ -51,4 +54,13 @@
 }
 .menuItem img{
     width: 40%;
+}
+.row{
+    display: flex
+}
+.footer{
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
 }
