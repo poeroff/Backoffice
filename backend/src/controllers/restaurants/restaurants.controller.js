@@ -9,7 +9,7 @@ export default class RestaurantsController {
      * @param {*} res
      */
     createRestaurant = async (req, res) => {
-        const memberId = 4;
+        const memberId = 5;
         try {
             const createdResult =
                 await this.restaurantsService.createRestaurant(

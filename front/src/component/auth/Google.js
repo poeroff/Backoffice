@@ -20,7 +20,6 @@ const Google = () =>{
                 onFailure={(err) => {
                     console.log(err);
                 }}
-                
             />
         </GoogleOAuthProvider>
     </div>

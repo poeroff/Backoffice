@@ -1,0 +1,30 @@
+.shop{
+    width: 100%;
+    text-align: center;
+    margin-top: 1%;
+   display: flex;
+   justify-content: center;
+   
+}
+.sh{
+    width: 40%;
+    text-align: left;
+    margin: 0px auto;
+    
+
+}
+.shoplist{
+    border: 1px solid gray;
+    
+    display: flex;
+    
+}
+.shoplist h3{
+    margin-left: 2%;
+}
+
+.shoplistimg{
+   
+    width: 15%;
+    
+}
