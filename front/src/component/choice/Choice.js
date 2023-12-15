@@ -1,7 +1,7 @@
 import React from "react"
 import classes from "./Choice.module.css";
 
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImage, MDBBtn } from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardBody, MDBCardText, MDBCardImage } from 'mdb-react-ui-kit';
 import { useDispatch} from "react-redux";
 import { ChoicActions } from "../../store/Choce-action";
 import { useNavigate } from "react-router-dom";
@@ -12,15 +12,18 @@ import { useNavigate } from "react-router-dom";
 const Choiceuser = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    let session = window.sessionStorage;
     
    
 
     
     const Choicehandler = (value) => {
         if(value ==="boss"){
+            session.setItem("user", "OWNER")
             dispatch(ChoicActions.Bossuser())
         }
         else if(value ==="client"){
+            session.setItem("user", "USER")
             dispatch(ChoicActions.clientuser());
         }
         navigate("/Login")

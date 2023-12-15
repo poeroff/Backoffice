@@ -7,6 +7,7 @@ export default class RestaurantsRepository {
      * @param {Object} createObj
      */
     createdRestaurant = async createObj => {
+       
         try {
             await prisma.restaurants.create({
                 data: {
@@ -95,7 +96,7 @@ export default class RestaurantsRepository {
                     ...updateObj,
                 },
             });
-            console.log(updatedRestaurant);
+
             return updatedRestaurant;
         } catch (err) {
             console.log(err);

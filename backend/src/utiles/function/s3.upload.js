@@ -16,6 +16,7 @@ const s3 = new AWS.S3({
  * @returns {object} result
  */
 export const s3upload = async fileObj => {
+    
     const params = {
         Bucket: process.env.BUCKET_NAME,
         Key: v4(),
