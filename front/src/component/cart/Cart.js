@@ -8,7 +8,7 @@ const Cart = () => {
 
     return (
         <Card className={classes.cart}>
-        <h2>Your Shopping Cart</h2>
+        {cartItems < 1   && <h4> 장바구니에 담긴 내역이 없습니다</h4>}
         <ul>
           {cartItems.map((item) => (
             <Cartitem

@@ -60,7 +60,7 @@ const Shopdetail = () => {
                 <MDBModalDialog scrollable>
                     <MDBModalContent>
                         <MDBModalHeader>
-                            <MDBModalTitle>Modal title</MDBModalTitle>
+                            <MDBModalTitle>Your Shopping Cart</MDBModalTitle>
                             <MDBBtn
                                 className='btn-close'
                                 color='none'
