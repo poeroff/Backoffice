@@ -81,7 +81,6 @@ export default class MenusService {
      */
     getMenu = async params => {
         const { menuId } = params;
-        console.log(menuId);
         const getMenu = await this.menusRepository.getMenu(menuId);
 
         if (!getMenu) {
@@ -96,12 +95,77 @@ export default class MenusService {
      * @param {*} parmas
      * @param {*} body
      */
-    updateMenu = async (parmas, body, file, memberId) => {
-        const { menuId, restaurantId } = parmas;
+    updateMenu = async (params, body, file, memberId) => {
+        const { menuId, restaurantId } = params;
+        const { name, description, price } = body;
+
         // 1. 현재 사용자가 현재 가게 사장님인지 체크해야함
-        console.log(menuId, restaurantId, memberId);
+        const selectRestaurant = await this.restaruantRepository.getRestaurant(
+            menuId
+        );
+
+        if (selectRestaurant.memberId !== memberId) {
+            throw new Exception(400, '해당 가게 사장님이 아닙니다.');
+        }
+
         // 2. 수정사항이 있는지 체크해야함
+        if (!name && !description && !price && !file) {
+            throw new Exception(400, '수정 사항이 없습니다.');
+        }
+
         // 3. 변경하려고 하는 메뉴의 이름이 해당가게에 이미 존재하는지 체크
+        const getMenus = await this.menusRepository.getMenus(restaurantId);
+
+        const filterMenus = getMenus.filter(obj => obj.name === name);
+
+        if (filterMenus.length > 0) {
+            throw new Exception(400, '중복된 메뉴이름이 있습니다.');
+        }
+
+        let resultImage;
+        if (file) {
+            resultImage = await s3upload(file).Location;
+        }
+
+        const prevMenu = await this.menusRepository.getMenu(menuId);
+
+        const updateMenu = new Menu(
+            restaurantId,
+            name || prevMenu.name,
+            price || prevMenu.price,
+            description || prevMenu.description,
+            resultImage || prevMenu.image
+        );
+
+        const updatedMenu = await this.menusRepository.updateMenu(
+            menuId,
+            updateMenu
+        );
+
+        return new Success(200, '메뉴 정보를 수정하였습니다.', updatedMenu);
+    };
+
+    deleteMenu = async (params, memberId) => {
+        const { menuId, restaurantId } = params;
+        //1. 해당 가게 사장님이 맞는지 체크
+        const selectRestaurant = await this.restaruantRepository.getRestaurant(
+            menuId
+        );
+
+        if (selectRestaurant.memberId !== memberId) {
+            throw new Exception(400, '해당 가게 사장님이 아닙니다.');
+        }
+
+        //2. 메뉴 존재
+        const selectMenu = await this.menusRepository.getMenu(menuId);
+
+        if (!selectMenu) {
+            throw new Exception(400, '해당 메뉴는 존재하지 않습니다.');
+        }
+
+        const deletedMenu = await this.menusRepository.deleteMenu(menuId);
+
+        return new Success(200, '메뉴 삭제가 완료되었습니다.', deletedMenu);
     };
 }
 

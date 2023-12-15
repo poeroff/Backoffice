@@ -33,4 +33,9 @@ router.patch(
     menusController.updateMenu
 );
 
+/**
+ * 메뉴 삭제 API
+ */
+router.delete('/menu/:restaurantId/:menuId', menusController.deleteMenu);
+
 export default router;
