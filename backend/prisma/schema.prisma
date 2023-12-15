@@ -31,6 +31,7 @@ model Restaurants {
   name        String   @map("name")
   description String   @map("description")
   image       String   @map("image")
+  cate Cate @map("cate")
   createdAt   DateTime @default(now()) @map("createdAt")
   updatedAt   DateTime @updatedAt @map("updatedAt")
 
@@ -79,4 +80,17 @@ enum Role {
 enum State {
   IN_PROGRESS
   COMPLETED
+}
+
+enum Cate {
+  Pizza
+  FastFood
+  SnackBar
+  Salad
+  KoreanCuisine
+  Meat
+  Fried
+  Midnight
+  Dessert
+  Noodles
 }

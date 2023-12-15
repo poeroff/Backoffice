@@ -14,4 +14,33 @@ router.post(
     restaurantsController.createRestaurant
 );
 
+/**
+ * 음식점 목록 조회 API
+ */
+router.get('/restaurants/:cate', restaurantsController.getRestaurants);
+
+/**
+ * 음식점 상세 조회 API
+ */
+router.get(
+    '/restaurants/:cate/:restaurantId',
+    restaurantsController.getRestaurant
+);
+
+/**
+ * 음식점 정보 수정 API
+ */
+router.put(
+    '/restaurants/:cate/:restaurantId',
+    uploadMiddleware.single('file'),
+    restaurantsController.updateRestaurant
+);
+
+/**
+ * 음식점 삭제 API
+ */
+router.delete(
+    '/restaurants/:cate/:restaurantId',
+    restaurantsController.deleteRestaurant
+);
 export default router;

@@ -5,7 +5,7 @@ import {
     JWT_ACCESS_TOKEN_EXPIRES_IN,
 } from '../constants/security.constant.js';
 import * as HttpStatus from '../errors/http-status.error.js';
-import { MembersRepository } from '../repositories/members.repository.js';
+import MembersRepository from '../repositories/member/members.repository.js';
 
 export class AuthService {
     constructor() {

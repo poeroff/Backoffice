@@ -15,13 +15,13 @@ const s3 = new AWS.S3({
  * @param {object} fileObj
  * @returns {object} result
  */
-const s3upload = async fileObj => {
+export const s3upload = async fileObj => {
     const params = {
         Bucket: process.env.BUCKET_NAME,
         Key: v4(),
         Body: fileObj.buffer,
         ContentType: fileObj.mimetype,
-        ALC: 'public-read',
+        ACL: 'public-read',
     };
 
     const result = await s3.upload(params).promise();

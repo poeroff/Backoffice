@@ -1,8 +1,23 @@
+import prisma from '../../utiles/prisma/prisma.js';
 import bcrypt from 'bcrypt';
-import { PASSWORD_HASH_SALT_ROUNDS } from '../constants/security.constant.js';
-import prisma from '../utiles/prisma/prisma.js';
+import { PASSWORD_HASH_SALT_ROUNDS } from '../../constants/security.constant.js';
 
-export class MembersRepository {
+export default class MembersRepository {
+    /**
+     * 회원 정보 조회
+     * @param {*} id
+     * @returns
+     */
+    getMember = async id => {
+        const selectMember = await prisma.members.findFirst({
+            where: {
+                id: +id,
+            },
+        });
+
+        return selectMember;
+    };
+
     createOne = async ({ email, password, nickname, ownerYn, money }) => {
         const hashedPassword = bcrypt.hashSync(
             password,
