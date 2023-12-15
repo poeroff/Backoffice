@@ -9,8 +9,7 @@ export default class MenusController {
      * @param {*} res
      */
     createMenu = async (req, res) => {
-        const memberId = 4;
-
+        const memberId = res.locals.user;
         try {
             const createdMenu = await this.menusService.createMenu(
                 memberId,
@@ -59,7 +58,7 @@ export default class MenusController {
      * 메뉴 수정
      */
     updateMenu = async (req, res) => {
-        const memberId = 4;
+        const memberId = res.locals.user;
         try {
             const updatedMenu = await this.menusService.updateMenu(
                 req.params,
@@ -78,7 +77,7 @@ export default class MenusController {
      * 메뉴 삭제
      */
     deleteMenu = async (req, res) => {
-        const memberId = 4;
+        const memberId = res.locals.user;
         try {
             const deletedMenu = await this.menusService.deleteMenu(
                 req.params,

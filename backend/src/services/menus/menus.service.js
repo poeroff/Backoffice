@@ -100,9 +100,8 @@ export default class MenusService {
         const { name, description, price } = body;
 
         // 1. 현재 사용자가 현재 가게 사장님인지 체크해야함
-        const selectRestaurant = await this.restaruantRepository.getRestaurant(
-            menuId
-        );
+        const selectRestaurant =
+            await this.restaruantRepository.getRestaurantAllInfo(restaurantId);
 
         if (selectRestaurant.memberId !== memberId) {
             throw new Exception(400, '해당 가게 사장님이 아닙니다.');
