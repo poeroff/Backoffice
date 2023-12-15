@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { JWT_ACCESS_TOKEN_SECRET } from '../constants/security.costant.js';
 
 export default async function (req, res, next) {
     try {
