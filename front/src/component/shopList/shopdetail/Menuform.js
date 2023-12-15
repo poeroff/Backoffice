@@ -13,33 +13,15 @@ const Menuform = (props) =>{
   
     const submitHandler = (event) => {
       event.preventDefault();
-      console.log(amountInputRef.current.value)
-  
-      const enteredAmount = amountInputRef.current.value;
-      const enteredAmountNumber = +enteredAmount;
-      if (enteredAmount.trim().length === 0 ||enteredAmountNumber < 1 ||enteredAmountNumber > 5) {
-        setAmountIsValid(false);
-        return;
-      }
+    
       dispatch(CartActions.addItemToCart({ id : 3,title : "asdas", price : 3 }));
 
     };
     return (
         <form className={classes.form} onSubmit={submitHandler}>
-        <Input
-          ref={amountInputRef}
-          label='Amount'
-          input={{
-            id: 'amount',
-            type: 'number',
-            min: '1',
-            max: '5',
-            step: '1',
-            defaultValue: '1',
-          }}
-        />
+        
         <button type="submit">+ Add</button>
-        {!amountIsValid && <p>Please enter a valid amount (1-5).</p>}
+       
       </form>
     )
 

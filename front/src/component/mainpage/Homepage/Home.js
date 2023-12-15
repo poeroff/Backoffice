@@ -92,10 +92,7 @@ const Home = () => {
                     </MDBCol>
                        
 
-                    <MDBCol>
-                    <MDBBtn> <AiOutlineFileSearch size="25"/> 주문 내역 </MDBBtn>
-
-                    </MDBCol>
+                
                     <MDBCol>
                     <Link to="/"> <AiFillHome size="50"/>  </Link>
 
