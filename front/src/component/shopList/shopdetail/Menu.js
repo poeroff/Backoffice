@@ -7,11 +7,12 @@ const Menu = () => {
     
     return (
             <div>
+                    
                    <li className={classes.meal}>
                 <div>
                     <h3>sadas</h3>
 
-                    <div className={classes.price}>3</div>
+                    <div className={classes.price}>price : 3</div>
                 </div>
                 <div>
                     <Menuform></Menuform>

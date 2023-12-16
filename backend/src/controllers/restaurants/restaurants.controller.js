@@ -10,6 +10,7 @@ export default class RestaurantsController {
      */
     createRestaurant = async (req, res) => {
         const memberId = res.locals.user;
+        console.log("hllo")
         try {
             const createdResult =
                 await this.restaurantsService.createRestaurant(
@@ -68,6 +69,7 @@ export default class RestaurantsController {
     updateRestaurant = async (req, res) => {
         const memberId = res.locals.user;
         const { restaurantId } = req.params;
+        console.log(req.body)
         try {
             const updatedResult =
                 await this.restaurantsService.updateRestaurant(
@@ -90,6 +92,7 @@ export default class RestaurantsController {
      */
     deleteRestaurant = async (req, res) => {
         const memberId = res.locals.user;
+      
 
         try {
             const deleteResult = await this.restaurantsService.deleteRestaurant(

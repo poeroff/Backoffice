@@ -110,9 +110,12 @@ export default class RestaurantsRepository {
      */
     deleteRestaurant = async id => {
         try {
+            console.log(id)
+            await prisma.menus.deleteMany({ where : {restaurantId : +id}})
             const deletedRestaurant = await prisma.restaurants.delete({
-                where: { id: +id },
+                where: { id: +id }
             });
+            
 
             return deletedRestaurant;
         } catch (err) {

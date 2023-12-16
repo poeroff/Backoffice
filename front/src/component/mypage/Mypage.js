@@ -1,17 +1,18 @@
 
 import { useSelector } from "react-redux";
-import Clientmypage from "./Clientmypage";
-import Bossmypage from "./Bossmypage";
+import Clientmypage from "./userpage/Clientmypage";
+import Owner from "./ownerpage/Page"
 import { useLoaderData } from "react-router-dom";
 const Mypage = () =>{
     const data = useLoaderData();
+ 
 
 
    
     return(
         <div>
                {sessionStorage.getItem("user") === "USER" &&  <Clientmypage user = {data.user}></Clientmypage>}
-               {sessionStorage.getItem("user") ==="OWNER" && <Bossmypage user = {data.user} Restaurants  = {data.Restaurants}></Bossmypage>}
+               {sessionStorage.getItem("user") ==="OWNER" && <Owner user = {data.user} Restaurants  = {data.Restaurants}></Owner>}
 
         </div>
      

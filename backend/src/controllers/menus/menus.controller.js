@@ -10,6 +10,7 @@ export default class MenusController {
      */
     createMenu = async (req, res) => {
         const memberId = res.locals.user;
+        console.log("hjeelo")
         try {
             const createdMenu = await this.menusService.createMenu(
                 memberId,

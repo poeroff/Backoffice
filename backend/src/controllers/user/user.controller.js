@@ -20,6 +20,7 @@ export class UserController {
                 name : true,
                 description : true,
                 image : true,
+                cate : true
                 
             }
         })

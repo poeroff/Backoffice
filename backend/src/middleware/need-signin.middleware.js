@@ -17,7 +17,7 @@ export default async function (req, res, next) {
             throw new Error('토큰 타입이 일치하지 않습니다.');
 
         //서버 발급 JWT 검증
-        
+       
         const decodedToken = jwt.verify(token, JWT_ACCESS_TOKEN_SECRET);
        
         res.locals.user = decodedToken.memberId;

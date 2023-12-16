@@ -6,7 +6,10 @@ import { Link, useParams ,useNavigate } from "react-router-dom";
 
 const Shop = () => {
     const data = useLoaderData();
+    console.log(data)
+   
     const params = useParams();
+    
     const navigate  = useNavigate();
 
     const moveurlhandler = (e) =>{
@@ -36,16 +39,16 @@ const Shop = () => {
                                     </MDBTableHead>
                                     <MDBTableBody>
                                         {data && data.data.map(list => (
+                                           
                                             
-                                            <tr onClick={() => moveurlhandler(list.id)} style={{cursor:"pointer"}}>
-                                                <th scope="row">{list.id}</th>
-                                                <td>{list.name}</td>
+                                            <tr key ={list.id} onClick={() => moveurlhandler(list.id)} style={{cursor:"pointer"}}>
+                                                <th scope="row"><img src={list.image} style={{width:"100px" , height:"100px", borderRadius:"10rem"}}></img></th>
+                                                <td >{list.name}</td>
                                                 <td>{list.description}</td>
-                                                <td>In progress</td>
+                                                <td>영업중</td>
 
                                             </tr>
                                            
-
                                         ))}
                                       
                                     </MDBTableBody>

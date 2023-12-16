@@ -14,6 +14,24 @@
     background-color: #93e2bb;
 }
 
+
+.mdbcard{
+    width: 100%;
+    margin: 0 auto;
+    height: 50%;
+   
+}
+.mdbcard img{
+    width: 80%;
+    margin: 0 auto;
+    height: 80%;
+   
+}
+.delete{
+    width: 100%;
+    
+}
+
 .row{
     display: flex
 }
@@ -22,4 +40,8 @@
     width: 100%;
     position: fixed;
     bottom: 0;
+    
+}
+.choiceform{
+   margin: 0px auto;
 }

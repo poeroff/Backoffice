@@ -162,6 +162,7 @@ export default class RestaurantsService {
      */
     deleteRestaurant = async (params, memberId) => {
         const { restaurantId } = params;
+        
 
         const selectRestaurant =
             await this.restaurantsRepository.getRestaurantAllInfo(restaurantId);
