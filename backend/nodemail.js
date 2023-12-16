@@ -1,11 +1,25 @@
 import nodemailer from 'nodemailer';
 import 'dotenv/config';
 
-let mailTransporter = nodemailer.createTransport({
+// gmail_API 토큰 발급
+const {
+    OAUTH_USER,
+    OAUTH_CLIENT_ID,
+    OAUTH_CLIENT_SECRET,
+    OAUTH_REFRESH_TOKEN,
+} = process.env;
+
+const mailTransporter = nodemailer.createTransport({
     service: 'gmail',
+    host: 'smtp.google.com',
+    port: 587,
+    secure: true,
     auth: {
-        user: process.env.NODEMAILER_USER,
-        password: process.env.NODEMAILER_PASS,
+        type: 'OAuth2',
+        user: OAUTH_USER,
+        clientId: OAUTH_CLIENT_ID,
+        clientSecret: OAUTH_CLIENT_SECRET,
+        refreshToken: OAUTH_REFRESH_TOKEN,
     },
 });
 
@@ -19,14 +33,14 @@ function randomAuthNumber() {
 
 const authNumber = randomAuthNumber();
 
-let details = {
-    from: '',
-    to: '',
+const message = {
+    from: OAUTH_USER,
+    to: ' * ', // * 수신자 메일 (DB 연동 필요)
     subject: '배달의 신, 가입 인증번호입니다.',
     text: `인증번호는 ${authNumber} 입니다.`,
 };
 
-mailTransporter.sendMail(details, err => {
+mailTransporter.sendMail(message, err => {
     if (err) {
         console.log('메일 전송에 실패하였습니다.', err);
     } else {
