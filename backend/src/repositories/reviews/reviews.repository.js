@@ -1,39 +1,36 @@
 import prisma from "../../utiles/prisma/prisma"
 
-export class ReviewsRepository {
-    createReview = async (restaurantId, review, score) => {
+export default class ReviewsRepository {
+    createReview = async newReviewObj => {
         const createdReview = await prisma.reviews.create({
             data: {
-                restaurantId,
-                review,
-                score,
+                ...newReviewObj,
             },
         });
 
         return createdReview;
     };
 
-    findAllReviews = async (restaurantId) => {
-        const reviews = await prisma.posts.findMany({
+    getReviews = async restaurantId => {
+        const getReviews = await prisma.posts.findMany({
             where: { restaurantId: +restaurantId },
         })
-        return reviews;
+        return getReviews;
     };
 
-    findReviewById = async (ReviewId) => {
-        const review = await prisma.reviews.findUnique({
+    getReview = async reviewId => {
+        const selecOneReview = await prisma.reviews.findUnique({
             where: { reviewId: +reviewId },
         })
 
-        return review;
+        return selecOneReview;
     }
 
-    updateReview = async (restaurantId, review, score) => {
+    updateReview = async (reviewId, updateReviewObj) => {
         const updatedReview = await prisma.reviews.update({
-            where: { restaurantId: +restaurantId },
+            where: { reviewId: +reviewId },
             data: {
-                review,
-                score
+                ...updateReviewObj,
             },
         });
 

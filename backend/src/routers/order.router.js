@@ -19,6 +19,8 @@ router.get(
  */
 router.get('/orders', needSigninMiddleware, ordersCountroller.getUserOrders);
 
+router.post('/orders/:restaurantId', needSigninMiddleware, ordersCountroller.createOrder)
+
 /**
  * 주문 완료 처리(사장님)
  */

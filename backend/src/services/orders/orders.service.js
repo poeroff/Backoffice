@@ -1,12 +1,13 @@
 import RestaurantsRepository from '../../repositories/restaurants/restaurants.repository.js';
 import OrdersRepository from '../../repositories/orders/orders.repository.js';
-import { Exception } from '../../utiles/exception/Exception.js';
+import MembersRepository from '../../repositories/member/members.repository.js'
+import { Exception } from '../../utiles/exception/exception.js';
 import { Success } from '../../utiles/success/success.js';
 
 export default class OrdersService {
     restaurantsRepository = new RestaurantsRepository();
     ordersRepository = new OrdersRepository();
-
+    membersRepository = new MembersRepository();
     /**
      * 주문 내역 조회
      * @param {*} memberId
@@ -57,6 +58,47 @@ export default class OrdersService {
             return new Exception(500, err);
         }
     };
+
+    createOrder = async (memberId, params, bodyObj) => {
+        try {
+            const { restaurantId } = params;
+            const { menuId } = bodyObj;
+
+            const selectRestaurant =
+                await this.restaurantsRepository.getRestaurantAllInfo(restaurantId);
+            if (!selectRestaurant) {
+                throw new Exception(400, '존재하지 않는 음식점 입니다.');
+            }
+
+            if (!menuId) {
+                throw new Exception(400, '존재하지 않는 메뉴 입니다.')
+            }
+
+            const selectMemberMoney =
+                await this.membersRepository.getMemberMoney(memberId);
+            const menuPrice =
+                await this.menusRepository.getMenuPrice(menuId);
+
+            if (selectMemberMoney < menuPrice) {
+                throw new Exception(
+                    400,
+                    '잔액이 부족합니다.'
+                )
+            }
+
+            const newOrder = new Order(
+                memberId,
+                restaurantId,
+                menuId
+            );
+
+            const createdOrder = await this.ordersRepository.createOrder(newOrder);
+
+            return new Success(201, '주문이 생성되었습니다.', createdOrder);
+        } catch (err) {
+            return new Exception(500, err);
+        }
+    }
 
     /**
      * 주문 완료 처리

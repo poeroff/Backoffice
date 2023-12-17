@@ -18,6 +18,19 @@ export default class MembersRepository {
         return selectMember;
     };
 
+    getMemberMoney = async id => {
+        const selectMemberMoney = await prisma.members.findFirst({
+            where: {
+                id: +id,
+            },
+            select: {
+                money: true,
+            },
+        });
+
+        return selectMemberMoney;
+    }
+
     createOne = async ({ email, password, nickname, ownerYn, money }) => {
         const hashedPassword = bcrypt.hashSync(
             password,

@@ -46,11 +46,13 @@ model Reviews {
   id           Int      @id @default(autoincrement()) @map("id")
   memberId     Int      @map("memberId")
   restaurantId Int      @map("restaurantId")
+  orderId      Int      @unique@map("orderid")
   review       String   @map("review")
   score        Int      @map("score")
   createdAt    DateTime @default(now()) @map("createdAt")
   updatedAt    DateTime @updatedAt @map("updatedAt")
 
+  order      Orders     @relation(fields: [orderId], references: [id])
   member     Members     @relation(fields: [memberId], references: [id])
   restaurant Restaurants @relation(fields: [restaurantId], references: [id])
 }
@@ -75,7 +77,9 @@ model Orders {
   restaurantId Int @map("restaurantId")
   menuId   Int   @map("menuId")
   state    State @default(IN_PROGRESS) @map("state")
+  reviewId Int?  @map("reviewId")
 
+  review   Reviews?
   menu       Menus @relation(fields: [menuId], references: [id])
   member     Members     @relation(fields: [memberId], references: [id])
   restaurant Restaurants @relation(fields: [restaurantId], references: [id])

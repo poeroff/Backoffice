@@ -38,6 +38,21 @@ export default class OrdersController {
         }
     };
 
+    createOrder = async (req, res) => {
+        const memberId = res.locals.user;
+        try {
+            const createOrder = await this.ordersService.createOrder(
+                memberId,
+                req.params,
+                req.body
+            );
+
+            return res.status(createOrder.status).json(createOrder);
+        } catch (err) {
+            return res.status(err.status).json(err);
+        }
+    };
+
     /**
      * 주문 완료 처리
      * @param {*} req
