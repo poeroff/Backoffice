@@ -1,6 +1,8 @@
 import RestaurantsRepository from '../../repositories/restaurants/restaurants.repository.js';
 import OrdersRepository from '../../repositories/orders/orders.repository.js';
 import MembersRepository from '../../repositories/member/members.repository.js'
+import MenusRepository from '../../repositories/menus/menus.repository.js'
+
 import { Exception } from '../../utiles/exception/exception.js';
 import { Success } from '../../utiles/success/success.js';
 
@@ -8,6 +10,8 @@ export default class OrdersService {
     restaurantsRepository = new RestaurantsRepository();
     ordersRepository = new OrdersRepository();
     membersRepository = new MembersRepository();
+    menusRepository = new MenusRepository();
+
     /**
      * 주문 내역 조회
      * @param {*} memberId
@@ -92,7 +96,7 @@ export default class OrdersService {
                 menuId
             );
 
-            const createdOrder = await this.ordersRepository.createOrder(newOrder);
+            const createdOrder = await this.ordersRepository.createOrder(newOrder, selectRestaurant.memberId, menuPrice);
 
             return new Success(201, '주문이 생성되었습니다.', createdOrder);
         } catch (err) {

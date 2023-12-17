@@ -80,7 +80,7 @@ export default class OrdersRepository {
 
 
     /**트랜잭션으로 계좌 변경 작성 필요 */
-    createOrder = async newOrderObj => {
+    createOrder = async (newOrderObj, ownerId) => {
         try {
             const createdOrder = await prisma.orders.create({
                 data: {
@@ -88,9 +88,31 @@ export default class OrdersRepository {
                 },
             });
 
+            await prisma.$transaction(async (tx) => {
+                await tx.members.update({
+                    where: { id: newOrderObj.memberId },
+                    data: {
+                        money: {
+                            decrement: price
+                        }
+                    },
+                });
+
+                await tx.members.update({
+                    where: { id: ownerId },
+                    data: {
+                        money: {
+                            increment: price
+                        }
+                    }
+                })
+            });
+
             return createdOrder;
         } catch (err) {
             console.log(err, '오류발생!!');
+        } finally {
+            await prisma.$disconnect();
         }
     }
 
