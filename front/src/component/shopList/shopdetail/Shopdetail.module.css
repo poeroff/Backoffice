@@ -7,7 +7,7 @@
     text-align: center;
     margin: 0 auto;
     margin-top: 6%;
-    border: 1px solid black;
+   
 }
 .buttondiv{
     width: 50%;
@@ -19,6 +19,10 @@
    
 
     border: 1px solid gray;
+}
+.menuadd{
+    background-color: white;
+    border: none;
 }
 .detailbutton{
     list-style: none;
@@ -43,4 +47,10 @@
     width: 100%;
     position: fixed;
     bottom: 0;
+}
+.detail img{
+    width: 200px;
+    height: 200px;
+    border-radius: 15rem;
+    
 }

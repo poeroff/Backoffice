@@ -78,6 +78,7 @@ export default class MenusController {
      */
     deleteMenu = async (req, res) => {
         const memberId = res.locals.user;
+       
         try {
             const deletedMenu = await this.menusService.deleteMenu(
                 req.params,

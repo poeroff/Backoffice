@@ -1,0 +1,59 @@
+.mypagebtn{
+    width: 100%;
+    text-align: center;
+
+}
+.icon{
+    gap: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.plus{
+    float: right;
+    border: none;
+    background-color: #93e2bb;
+}
+
+
+.mdbcard{
+    width: 100%;
+    margin: 0 auto;
+    height: 50%;
+   
+}
+.mdbcard img{
+    width: 80%;
+    margin: 0 auto;
+    height: 80%;
+   
+}
+.delete{
+    width: 100%;
+    
+}
+
+.row{
+    display: flex
+}
+.footer{
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    
+}
+.choiceform{
+   width: 100%;
+ 
+}
+.xicon{
+    width: 100%;
+    cursor: pointer;
+}
+.Deletemenu{
+    display: flex;
+    justify-content: center;
+    gap: 30%;
+    margin-top:5%;
+    margin-bottom: 5%;
+}

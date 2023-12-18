@@ -4,6 +4,7 @@ import router from './routers/index.js';
 import { errorHandler } from './middleware/error-handler.middleware.js';
 import cors from "cors"
 
+
 const app = express();
 const port = 8000;
 
@@ -15,6 +16,15 @@ app.use(cors())
 app.use('/', router);
 app.use(errorHandler);
 
-app.listen(port, () => {
-    console.log(`서버가 정상적으로 구동되었습니다. ${port}`);
-});
+
+app.listen(port,()=>{
+    console.log("8000번 포트가 열렸습니다")
+})
+
+// const server =  app.listen(port)
+// io.init(server);
+// io.on("connection", socket =>{
+//     console.log("Client connected")
+// })
+
+
