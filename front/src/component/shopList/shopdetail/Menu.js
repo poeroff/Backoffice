@@ -4,12 +4,14 @@ import Menuform from "./Menuform"
 import { AiFillPlusSquare } from "react-icons/ai";
 
 const Menu = (props) => {
+    console.log(props)
 
 
     return (
         <div>
             {props.data.length > 0 && props.data.map(menulist => (
                 <li key = {menulist.id}className={classes.meal}>
+                    <img src={menulist.image} className={classes.shopdetailimg}></img>
                     <div>
                         <h3>{menulist.name}</h3>
 

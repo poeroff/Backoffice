@@ -114,11 +114,13 @@ export default class RestaurantsService {
         if (!bodyObj.name && !bodyObj.cate && !fileObj) {
             throw new Exception(400, '변경 사항이 존재하지 않습니다.');
         }
+      
 
         const selectRestaurant =
             await this.restaurantsRepository.getRestaurantAllInfo(restaurantId);
+        
 
-        if (selectRestaurant.member.id !== memberId) {
+        if (selectRestaurant.selectRestaurant.member.id !== memberId) {
             throw new Exception(400, '해당 음식점 사장님 계정이 아닙니다.');
         }
 
@@ -126,16 +128,18 @@ export default class RestaurantsService {
         if (fileObj) {
             imageUploadResult = await s3upload(fileObj).Location;
         } else {
-            imageUploadResult = selectRestaurant.image;
+            imageUploadResult = selectRestaurant.selectRestaurant.image;
         }
 
+      
+
         const updateRestaurant = new Restaurant(
-            +selectRestaurant.member.id,
-            bodyObj.name ? bodyObj.name : selectRestaurant.name,
+            +selectRestaurant.selectRestaurant.member.id,
+            bodyObj.name ? bodyObj.name : selectRestaurant.selectRestaurant.name,
             bodyObj.description
                 ? bodyObj.description
-                : selectRestaurant.description,
-            bodyObj.cate ? bodyObj.cate : selectRestaurant.cate,
+                : selectRestaurant.selectRestaurant.description,
+            bodyObj.cate ? bodyObj.cate : selectRestaurant.selectRestaurant.cate,
             imageUploadResult
         );
 

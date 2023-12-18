@@ -98,6 +98,7 @@ export default class RestaurantsRepository {
      */
     updateRestaurant = async (updateObj, id) => {
         try {
+            
             const updatedRestaurant = await prisma.restaurants.update({
                 where: { id: +id },
                 data: {

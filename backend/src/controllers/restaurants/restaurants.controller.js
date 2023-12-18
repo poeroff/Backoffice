@@ -72,7 +72,7 @@ export default class RestaurantsController {
     updateRestaurant = async (req, res) => {
         const memberId = res.locals.user;
         const { restaurantId } = req.params;
-        console.log(req.body)
+       
         try {
             const updatedResult =
                 await this.restaurantsService.updateRestaurant(
