@@ -3,95 +3,68 @@ import ReviewsService from '../../services/reviews/reviews.service'
 export class ReviewsController {
     reviewsService = new ReviewsService();
 
-    createReview = async (restaurantId, review, score) => {
+    createReview = async (req, res) => {
         try {
-            const { restaurantId } = req.params;
-            // const { userId } = req.headers;
-            const { review, score } = req.body;
+            const memberId = res.locals.user;
 
             const createdReview = await this.reviewsService.createReview(
-                restaurantId,
-                review,
-                score
+                memberId,
+                req.params,
+                req.body
             );
 
-            return res.status(201).json({
-                message: "리뷰 작성에 성공했습니다.",
-                data: createdReview
-            });
+            return res.status(createdReview.status).json({ createdReview });
         } catch (err) {
-            console.log(err);
+            return res.status(err.status).json(err);
         };
     };
 
-    findAllReviews = async (restaurantId) => {
+    getReviews = async (req, res) => {
         try {
-            const { restaurantId } = req.params;
+            const getReviews = await this.reviewsService.getReviews(req.params);
 
-            const reviews = await this.reviewsService.findAllReviews(restaurantId);
-
-            return res.status(200).json({
-                message: "조회에 성공했습니다.",
-                data: reviews
-            });
+            return res.status(getReviews.status).json(getReviews);
         } catch (err) {
-            console.log(err)
+            return res.status(err.status).json(err);
         };
     };
 
-    findReviewById = async (reviewId) => {
+    getReview = async (req, res) => {
         try {
-            const { reviewId } = req.params;
+            const getReview = await this.reviewsService.getReview(req.params);
 
-            const review = await this.reviewsService.findReviewById(reviewId);
-
-            return res.status(200).json({
-                message: "조회에 성공했습니다.",
-                data: review
-            });
+            return res.status(getReview.status).json(getReview);
         } catch (err) {
-            console.log(err)
+            return res.status(err.status).json(err)
         };
     };
 
-    updateReview = async (restaurantId, reviewId, review, score) => {
+    updateReview = async (req, res) => {
+        const memberId = res.locals.user;
         try {
-            const { restaurantId, reviewId } = req.params;
-            const { userId } = req.headers;
-            const { review, score } = req.body;
-
             const updatedReview = await this.reviewsService.updateReview(
-                restaurantId,
-                reviewId,
-                // userId,
-                review,
-                score
+                req.params,
+                req.body,
+                memberId
             )
 
-            return res.status(201).json({
-                message: "수정에 성공했습니다.",
-                data: updatedReview
-            });
+            return res.status(updatedReview.status).json(updatedReview);
         } catch (err) {
-            console.log(err)
+            return res.status(err.status).json(err);
         };
     };
 
-    deleteReview = async (reviewId) => {
+    deleteReview = async (req, res) => {
+        const memberId = res.locals.user;
         try {
-            const { reviewId } = req.params;
-
             const deletedReview = await this.reviewsService.deleteReview(
-                reviewId,
-            )
+                req.params,
+                memberId
+            );
 
-            return res.status(200).json({
-                message: '삭제를 성공했습니다.',
-                data: deletedReview
-            })
+            return res.status(deletedReview.status).json(deletedReview);
         } catch (err) {
-            console.log(err)
-        };
+            return res.status(err.status).json(err);
+        }
     };
 };
-

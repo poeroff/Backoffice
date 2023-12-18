@@ -1,11 +1,13 @@
 import { Router } from "express";
 import ReviewsController from "../controllers/reviews/reviews.controller"
+import needSigninMiddleware from "../middleware/need-signin.middleware";
 
 const router = Router();
 const reviewsController = new ReviewsController
 
 router.post(
-    '/restaurants/:restaurantId/reviews',
+    '/restaurants/:restaurantId/orders/:orderId/reviews',
+    needSigninMiddleware,
     reviewsController.createReview
 );
 
@@ -21,6 +23,13 @@ router.get(
 
 router.put(
     '/restaurants/:restaurantId/reviews/:reviewId',
+    needSigninMiddleware,
     reviewsController.updateReview
 );
+
+router.delete(
+    '/restaurants/:restaurantId/reviews/:reviewId',
+    needSigninMiddleware,
+    reviewsController.deleteReview
+)
 export default router;

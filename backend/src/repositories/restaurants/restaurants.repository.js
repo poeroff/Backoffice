@@ -1,4 +1,4 @@
-import { Exception } from '../../utiles/exception/Exception.js';
+import { Exception } from '../../utiles/exception/exception.js';
 import prisma from '../../utiles/prisma/prisma.js';
 
 export default class RestaurantsRepository {
@@ -7,7 +7,7 @@ export default class RestaurantsRepository {
      * @param {Object} createObj
      */
     createdRestaurant = async createObj => {
-       
+
         try {
             await prisma.restaurants.create({
                 data: {

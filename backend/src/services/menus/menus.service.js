@@ -1,6 +1,6 @@
 import RestaurantsRepository from '../../repositories/restaurants/restaurants.repository.js';
 import MenusRepository from '../../repositories/menus/menus.repository.js';
-import { Exception } from '../../utiles/exception/Exception.js';
+import { Exception } from '../../utiles/exception/exception.js';
 import { s3upload } from '../../utiles/function/s3.upload.js';
 import { Success } from '../../utiles/success/success.js';
 
