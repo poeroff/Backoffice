@@ -1,12 +1,16 @@
-import { Exception } from '../../utiles/exception/Exception.js';
+import { Exception } from '../../utiles/exception/exception.js';
 import { Success } from '../../utiles/success/success.js';
 import RestaurantsRepository from '../../repositories/restaurants/restaurants.repository.js';
 import MembersRepository from '../../repositories/member/members.repository.js';
+import ReviewsRepository from '../../repositories/reviews/reviews.repository.js';
+import MenusRepository from '../../repositories/menus/menus.repository.js';
 import { s3upload } from '../../utiles/function/s3.upload.js';
 
 export default class RestaurantsService {
     restaurantsRepository = new RestaurantsRepository();
     memberRepository = new MembersRepository();
+    reviewRepository = new ReviewsRepository();
+    menusRepository = new MenusRepository();
 
     /**
      * 음식점 등록
@@ -90,11 +94,19 @@ export default class RestaurantsService {
                     restaurantId
                 );
 
-            return new Success(
-                200,
-                '음식점 상세정보 조회를 성공하였습니다',
-                selectRestaurant
+            const selectReviews = await this.reviewRepository.getReviews(
+                restaurantId
             );
+
+            const selectMenus = await this.menusRepository.getMenus(
+                restaurantId
+            );
+
+            return new Success(200, '음식점 상세정보 조회를 성공하였습니다', {
+                restaurantInfo: selectRestaurant,
+                reviews: selectReviews,
+                menus: selectMenus,
+            });
         } catch (err) {
             return new Exception().exceptionServer();
         }

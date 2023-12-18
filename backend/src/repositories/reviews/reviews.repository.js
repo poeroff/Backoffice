@@ -1,4 +1,4 @@
-import prisma from "../../utiles/prisma/prisma"
+import prisma from '../../utiles/prisma/prisma.js';
 
 export default class ReviewsRepository {
     createReview = async newReviewObj => {
@@ -12,19 +12,19 @@ export default class ReviewsRepository {
     };
 
     getReviews = async restaurantId => {
-        const getReviews = await prisma.posts.findMany({
+        const getReviews = await prisma.reviews.findMany({
             where: { restaurantId: +restaurantId },
-        })
+        });
         return getReviews;
     };
 
     getReview = async reviewId => {
         const selecOneReview = await prisma.reviews.findUnique({
             where: { reviewId: +reviewId },
-        })
+        });
 
         return selecOneReview;
-    }
+    };
 
     updateReview = async (reviewId, updateReviewObj) => {
         const updatedReview = await prisma.reviews.update({
@@ -37,11 +37,11 @@ export default class ReviewsRepository {
         return updatedReview;
     };
 
-    deleteReview = async (reviewId) => {
+    deleteReview = async reviewId => {
         const deletedReview = await prisma.reviews.delete({
-            where: { reviewId: +reviewId }
+            where: { reviewId: +reviewId },
         });
 
         return deletedReview;
-    }
+    };
 }
