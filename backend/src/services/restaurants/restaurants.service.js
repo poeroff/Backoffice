@@ -63,9 +63,11 @@ export default class RestaurantsService {
      * @returns
      */
     getRestaurants = async (params, query) => {
+        
         const { cate } = params;
         const { search } = query;
-
+        
+       
         const selectAllRestaurants =
             await this.restaurantsRepository.getRestaurants(cate, search);
 

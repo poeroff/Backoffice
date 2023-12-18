@@ -14,11 +14,11 @@ import Cart from "../../cart/Cart"
 
 
 const Shopdetail = () => {
-    const data = useLoaderData();
-    console.log(data);
+    const data = useLoaderData(); console.log(data.data.selectRestaurant)
+   
+    
     const {shopid} = useParams();
   
-
     const [Menus, setMenu] = useState(true);
     const [Infos, setInfo] = useState(false);
     const [Reviews, setReview] = useState(false);
@@ -45,7 +45,6 @@ const Shopdetail = () => {
         });
     }
 
-
     const Menuclick = () => {
         setMenu(true);
         setInfo(false)
@@ -69,8 +68,8 @@ const Shopdetail = () => {
     return (
         <>
             <div className={classes.detail}>
-                <img src= {data.data.image}></img>
-                <h3>{data.data.name}</h3>
+                <img src= {data.data.selectRestaurant.image}></img>
+                <h3>{data.data.selectRestaurant.name}</h3>
               
             </div>
             <div className={classes.buttondiv}>
@@ -81,7 +80,7 @@ const Shopdetail = () => {
             </div>
             
             <div className={classes.Info}>
-                {Menus && <Menu></Menu>}
+                {Menus && <Menu data= {data.data.menu}></Menu>}
                 {Infos && <Info></Info>}
                 {Reviews && <Review></Review>}
             </div>
@@ -132,6 +131,7 @@ export async function loader({ params }) {
 
         const shopcate = params.foodMenu
         const shopdetail = params.shopid
+      
 
         const response = await fetch(`http://localhost:8000/restaurants/${shopcate}/${shopdetail}`)
 

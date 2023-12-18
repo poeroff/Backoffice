@@ -5,6 +5,7 @@ export default class MenusRepository {
      * 메뉴 등록
      */
     createMenu = async newMenuObj => {
+        console.log(newMenuObj)
         const createdMenu = await prisma.menus.create({
             data: {
                 ...newMenuObj,

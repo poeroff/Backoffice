@@ -11,6 +11,7 @@ import Pageupdatemodal from './Pageupdatemodal';
 import Choicemodal from './Choicemodal';
 
 const PageContainer = (props) =>{
+   
     const [basicModal, setBasicModal] = useState(false);
     const toggleOpen = () => setBasicModal(!basicModal);
     const [updateModal, setupdateModal] = useState(false);

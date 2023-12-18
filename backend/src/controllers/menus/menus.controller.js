@@ -10,7 +10,6 @@ export default class MenusController {
      */
     createMenu = async (req, res) => {
         const memberId = res.locals.user;
-        console.log("hjeelo")
         try {
             const createdMenu = await this.menusService.createMenu(
                 memberId,
@@ -79,6 +78,7 @@ export default class MenusController {
      */
     deleteMenu = async (req, res) => {
         const memberId = res.locals.user;
+       
         try {
             const deletedMenu = await this.menusService.deleteMenu(
                 req.params,

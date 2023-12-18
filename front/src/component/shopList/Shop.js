@@ -2,24 +2,32 @@ import { useLoaderData } from "react-router-dom";
 import classes from "./Shop.module.css"
 import { MDBListGroup, MDBListGroupItem, MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBContainer, MDBInput, MDBRow, MDBTable, MDBTableBody, MDBTableHead, } from 'mdb-react-ui-kit';
 import { Link, useParams ,useNavigate } from "react-router-dom";
+import { useEffect ,useState} from "react";
+import openSocknet from "socket.io-client"
 
 
 const Shop = () => {
-    const data = useLoaderData();
-    console.log(data)
-   
-    const params = useParams();
     
+    const params = useParams();
+    const [shoplist, setshoplist] = useState()
+  
     const navigate  = useNavigate();
-
     const moveurlhandler = (e) =>{
        navigate(`${e}`)
     }
+    useEffect(()=>{
+        fetch(`http://localhost:8000/restaurants/${params.foodMenu}`).then(res => res.json())
+        .then(resData => { if(resData.success){
+            setshoplist(resData);
+            
+        }}).catch(err =>{
+            console.log(err)
+        })
 
-
+    },[])
     return (
         <section className="vh-100" style={{ backgroundColor: "#eee" }}>
-            <MDBContainer className="py-5 h-100">
+            { <MDBContainer className="py-5 h-100">
                 <MDBRow className="d-flex justify-content-center align-items-center">
                     <MDBCol lg="9" xl="7">
                         <MDBCard className="rounded-3">
@@ -38,26 +46,21 @@ const Shop = () => {
                                         </tr>
                                     </MDBTableHead>
                                     <MDBTableBody>
-                                        {data && data.data.map(list => (
-                                           
-                                            
+                                        {shoplist && shoplist.data.map(list => (
                                             <tr key ={list.id} onClick={() => moveurlhandler(list.id)} style={{cursor:"pointer"}}>
                                                 <th scope="row"><img src={list.image} style={{width:"100px" , height:"100px", borderRadius:"10rem"}}></img></th>
                                                 <td >{list.name}</td>
                                                 <td>{list.description}</td>
                                                 <td>영업중</td>
-
                                             </tr>
-                                           
                                         ))}
-                                      
                                     </MDBTableBody>
                                 </MDBTable>
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
                 </MDBRow>
-            </MDBContainer>
+            </MDBContainer> }
         </section>
 
 
@@ -68,20 +71,3 @@ const Shop = () => {
 export default Shop;
 
 
-export async function loader({ params }) {
-    try {
-        const id = params.foodMenu;
-        const response = await fetch("http://localhost:8000/restaurants/" + id);
-
-        const resData = await response.json();
-        return resData;
-    }
-    catch (err) {
-        return err;
-    }
-
-
-
-
-
-}

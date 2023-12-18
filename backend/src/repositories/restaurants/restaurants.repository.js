@@ -40,6 +40,7 @@ export default class RestaurantsRepository {
      * @returns
      */
     getRestaurants = async (cate, searchParam) => {
+        
         const selectAllRestaurants = await prisma.restaurants.findMany({
             where: {
                 cate,
@@ -56,6 +57,7 @@ export default class RestaurantsRepository {
                 },
             },
         });
+        // const menu = await prisma.menus.findMany({where :})
 
         return selectAllRestaurants;
     };
@@ -66,6 +68,7 @@ export default class RestaurantsRepository {
      * @returns
      */
     getRestaurantAllInfo = async id => {
+       
         const selectRestaurant = await prisma.restaurants.findFirst({
             where: {
                 id: +id,
@@ -80,7 +83,12 @@ export default class RestaurantsRepository {
             },
         });
 
-        return selectRestaurant;
+        const menu = await prisma.Menus.findMany({
+            where :{restaurantId : +id }
+        })
+        const shopdetail = {selectRestaurant , menu}
+
+        return shopdetail;
     };
 
     /**
