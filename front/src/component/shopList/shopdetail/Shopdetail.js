@@ -14,7 +14,8 @@ import Cart from "../../cart/Cart"
 
 
 const Shopdetail = () => {
-    const data = useLoaderData(); console.log(data.data.selectRestaurant)
+    const data = useLoaderData(); 
+    console.log(data.data.selectRestaurant)
    
     
     const {shopid} = useParams();
