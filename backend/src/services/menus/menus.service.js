@@ -18,12 +18,11 @@ export default class MenusService {
     createMenu = async (memberId, params, bodyObj, file) => {
         const { restaurantId } = params;
         const { name, description, price } = bodyObj;
-        
 
         const selectRestaurant =
             await this.restaruantRepository.getRestaurantAllInfo(restaurantId);
 
-        console.log(selectRestaurant.selectRestaurant.id)
+        console.log(selectRestaurant.selectRestaurant.id);
 
         if (selectRestaurant.selectRestaurant.memberId !== memberId) {
             throw new Exception(
@@ -106,7 +105,7 @@ export default class MenusService {
         const selectRestaurant =
             await this.restaruantRepository.getRestaurantAllInfo(restaurantId);
 
-        if (selectRestaurant.memberId !== memberId) {
+        if (selectRestaurant.selectRestaurant.memberId !== memberId) {
             throw new Exception(400, '해당 가게 사장님이 아닙니다.');
         }
 
@@ -126,7 +125,8 @@ export default class MenusService {
 
         let resultImage;
         if (file) {
-            resultImage = await s3upload(file).Location;
+            resultImage = await s3upload(file);
+            resultImage = resultImage.Location;
         }
 
         const prevMenu = await this.menusRepository.getMenu(menuId);
@@ -149,18 +149,16 @@ export default class MenusService {
 
     deleteMenu = async (params, memberId) => {
         const { menuId, restaurantId } = params;
-       
+
         //1. 해당 가게 사장님이 맞는지 체크
         const selectRestaurant = await this.restaruantRepository.getRestaurant(
             menuId
         );
-        console.log(memberId, selectRestaurant)
-      
+        console.log(memberId, selectRestaurant);
+
         if (selectRestaurant.memberId !== memberId) {
             throw new Exception(400, '해당 가게 사장님이 아닙니다.');
         }
-     
-       
 
         //2. 메뉴 존재
         const selectMenu = await this.menusRepository.getMenu(menuId);
@@ -168,7 +166,6 @@ export default class MenusService {
         if (!selectMenu) {
             throw new Exception(400, '해당 메뉴는 존재하지 않습니다.');
         }
-     
 
         const deletedMenu = await this.menusRepository.deleteMenu(menuId);
 

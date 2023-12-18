@@ -67,11 +67,9 @@ export default class RestaurantsService {
      * @returns
      */
     getRestaurants = async (params, query) => {
-        
         const { cate } = params;
         const { search } = query;
-        
-       
+
         const selectAllRestaurants =
             await this.restaurantsRepository.getRestaurants(cate, search);
 
@@ -126,11 +124,9 @@ export default class RestaurantsService {
         if (!bodyObj.name && !bodyObj.cate && !fileObj) {
             throw new Exception(400, '변경 사항이 존재하지 않습니다.');
         }
-      
 
         const selectRestaurant =
             await this.restaurantsRepository.getRestaurantAllInfo(restaurantId);
-        
 
         if (selectRestaurant.selectRestaurant.member.id !== memberId) {
             throw new Exception(400, '해당 음식점 사장님 계정이 아닙니다.');
@@ -138,20 +134,23 @@ export default class RestaurantsService {
 
         let imageUploadResult;
         if (fileObj) {
-            imageUploadResult = await s3upload(fileObj).Location;
+            imageUploadResult = await s3upload(fileObj);
+            imageUploadResult = imageUploadResult.Location;
         } else {
             imageUploadResult = selectRestaurant.selectRestaurant.image;
         }
 
-      
-
         const updateRestaurant = new Restaurant(
             +selectRestaurant.selectRestaurant.member.id,
-            bodyObj.name ? bodyObj.name : selectRestaurant.selectRestaurant.name,
+            bodyObj.name
+                ? bodyObj.name
+                : selectRestaurant.selectRestaurant.name,
             bodyObj.description
                 ? bodyObj.description
                 : selectRestaurant.selectRestaurant.description,
-            bodyObj.cate ? bodyObj.cate : selectRestaurant.selectRestaurant.cate,
+            bodyObj.cate
+                ? bodyObj.cate
+                : selectRestaurant.selectRestaurant.cate,
             imageUploadResult
         );
 
@@ -180,7 +179,6 @@ export default class RestaurantsService {
      */
     deleteRestaurant = async (params, memberId) => {
         const { restaurantId } = params;
-        
 
         const selectRestaurant =
             await this.restaurantsRepository.getRestaurantAllInfo(restaurantId);

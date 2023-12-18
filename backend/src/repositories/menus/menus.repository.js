@@ -5,7 +5,7 @@ export default class MenusRepository {
      * 메뉴 등록
      */
     createMenu = async newMenuObj => {
-        console.log(newMenuObj)
+        console.log(newMenuObj);
         const createdMenu = await prisma.menus.create({
             data: {
                 ...newMenuObj,
@@ -87,6 +87,7 @@ export default class MenusRepository {
      * @param {*} menuId
      */
     deleteMenu = async menuId => {
+        console.log('삭제 메뉴 아이디: ', menuId);
         const deletedMenu = await prisma.menus.delete({
             where: {
                 id: +menuId,
